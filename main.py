@@ -4,12 +4,13 @@
 import streamlit as st
 import os 
 import pandas as pd
-from assist.assist_dicts import basis_function_list, basis_function_parameter_list, model_struc_dict, model_struc_parameter_list, ic_list, estimators_list, model_type_list
+from assist.assist_dicts import basis_function_list, basis_function_parameter_list, model_struc_dict, model_struc_selec_parameter_list, ic_list, estimators_list, model_type_list
 import assist.utils as utils
 import importlib
 from sysidentpy.basis_function import *
 import numpy as np
 from sysidentpy.utils.generate_data import get_siso_data
+from sysidentpy.metrics import root_relative_squared_error
 root = os.path.join(os.path.dirname(__file__)+'\\assist')
 path = os.path.join(root, "pagedesign.py")
 
@@ -52,19 +53,19 @@ with tab2:
             key_list = list(basis_function_parameter_list[i]) #essa lista das keys do dict de parametros, serve para acessar os values e ser a label dos widgets
             while wcont1<len(utils.dict_values_to_list(basis_function_parameter_list[i])): #criando os widgets recursivamente, e atribuindo os nomes p/ os widgets
                 k = 'bf_par_' + str(wcont1)
-
-                if type(basis_function_parameter_list[i][key_list[wcont1]]) is int:
-                    st.number_input(key_list[wcont1], key = k, min_value=0, value=basis_function_parameter_list[i][key_list[wcont1]])
-
-                if type(basis_function_parameter_list[i][key_list[wcont1]]) is float:
+                # st.write(isinstance(basis_function_parameter_list[i][key_list[wcont1]], bool))
+                if isinstance(basis_function_parameter_list[i][key_list[wcont1]], int):
+                    if isinstance(basis_function_parameter_list[i][key_list[wcont1]], bool):
+                        st.write(key_list[wcont1])
+                        st.checkbox('', key = k, value=basis_function_parameter_list[i][key_list[wcont1]]) #no checkbox, a label é automaticamente a direita, então
+                                                                                #chamo antes em cima
+                    else:
+                        st.number_input(key_list[wcont1], key = k, min_value=0, value=basis_function_parameter_list[i][key_list[wcont1]])
+                        
+                if isinstance(basis_function_parameter_list[i][key_list[wcont1]], float):
                     st.number_input(key_list[wcont1], key = k, min_value=0.0, value=basis_function_parameter_list[i][key_list[wcont1]])
 
-                if type(basis_function_parameter_list[i][key_list[wcont1]]) is bool:
-                    st.write(key_list[wcont1])
-                    st.checkbox('', key = k, value=basis_function_parameter_list[i][key_list[wcont1]]) #no checkbox, a label é automaticamente a direita, então
-                                                                                #chamo antes em cima
-
-                if type(basis_function_parameter_list[i][key_list[wcont1]]) is str:
+                if isinstance(basis_function_parameter_list[i][key_list[wcont1]], str):
                     st.write('string') 
 
                 wcont1 = wcont1+1
@@ -90,8 +91,8 @@ with tab2:
     st.markdown("""---""")
     
     bf_module = importlib.import_module('sysidentpy.basis_function._basis_function') #pegando o arquivo onde tá a classe da basis function
-    bf = utils.str_to_class(st.session_state['basis_function_key'], bf_module)(bf_par_dict) #instanciando a basis function
-    
+    bf = utils.str_to_class(st.session_state['basis_function_key'], bf_module)(**bf_par_dict) #instanciando a basis function
+
     st.selectbox('Model Structure Selection Algorithm', list(model_struc_dict), key='model_struc_select_key')
     
 
@@ -100,31 +101,31 @@ with tab2:
         if st.session_state['model_struc_select_key'] == list(model_struc_dict)[i]: 
 		
             wcont2 = 0 
-            key_list = list(model_struc_parameter_list[i]) 
-            while wcont2<len(utils.dict_values_to_list(model_struc_parameter_list[i])):
+            key_list = list(model_struc_selec_parameter_list[i]) 
+            while wcont2<len(utils.dict_values_to_list(model_struc_selec_parameter_list[i])):
                 k = 'mss_par_' + str(wcont2)
 
-                if type(model_struc_parameter_list[i][key_list[wcont2]]) is int:
-                    if model_struc_parameter_list[i][key_list[wcont2]]<0:
-                        st.number_input(key_list[wcont2], key = k, min_value=-50, value=model_struc_parameter_list[i][key_list[wcont2]])
+                if isinstance(model_struc_selec_parameter_list[i][key_list[wcont2]], int):
+                    if isinstance(model_struc_selec_parameter_list[i][key_list[wcont2]], bool):
+                        st.write(key_list[wcont2])
+                        st.checkbox('', key = k, value=model_struc_selec_parameter_list[i][key_list[wcont2]]) 
                     else:
-                        st.number_input(key_list[wcont2], key = k, min_value=0, value=model_struc_parameter_list[i][key_list[wcont2]])
+                        if model_struc_selec_parameter_list[i][key_list[wcont2]]<0:
+                            st.number_input(key_list[wcont2], key = k, min_value=-50, value=model_struc_selec_parameter_list[i][key_list[wcont2]])
+                        else:
+                            st.number_input(key_list[wcont2], key = k, min_value=0, value=model_struc_selec_parameter_list[i][key_list[wcont2]])
 
-                if type(model_struc_parameter_list[i][key_list[wcont2]]) is None:
-                    # st.number_input(key_list[wcont2], key = k, min_value=-50, value=model_struc_parameter_list[i][key_list[wcont2]])
-                    st.write('None')
+                if model_struc_selec_parameter_list[i][key_list[wcont2]] is None:
+                    # st.number_input(key_list[wcont2], key = k, min_value=-50, value=model_struc_selec_parameter_list[i][key_list[wcont2]])
+                    st.write('Tipo None AQUI') #n ta funcionando n
 
-                if type(model_struc_parameter_list[i][key_list[wcont2]]) is float:
-                    if model_struc_parameter_list[i][key_list[wcont2]]<0.0:
-                        st.number_input(key_list[wcont2], key = k, min_value=-50.0, value=model_struc_parameter_list[i][key_list[wcont2]])
+                if isinstance(model_struc_selec_parameter_list[i][key_list[wcont2]], float):
+                    if model_struc_selec_parameter_list[i][key_list[wcont2]]<0.0:
+                        st.number_input(key_list[wcont2], key = k, min_value=-50.0, value=model_struc_selec_parameter_list[i][key_list[wcont2]])
                     else:
-                        st.number_input(key_list[wcont2], key = k, min_value=0.0, value=model_struc_parameter_list[i][key_list[wcont2]])
-
-                if type(model_struc_parameter_list[i][key_list[wcont2]]) is bool:
-                    st.write(key_list[wcont2])
-                    st.checkbox('', key = k, value=model_struc_parameter_list[i][key_list[wcont2]]) 
-                                                                                
-                if type(model_struc_parameter_list[i][key_list[wcont2]]) is str:
+                        st.number_input(key_list[wcont2], key = k, min_value=0.0, value=model_struc_selec_parameter_list[i][key_list[wcont2]])
+                                                                                                   
+                if isinstance(model_struc_selec_parameter_list[i][key_list[wcont2]], str):
                     if key_list[wcont2] == 'info_criteria':
                         st.selectbox(key_list[wcont2], ic_list, key = k)
                     if key_list[wcont2] == 'estimator':
@@ -132,27 +133,25 @@ with tab2:
                     if key_list[wcont2] == 'model_type':
                         st.selectbox(key_list[wcont2], model_type_list, key = k)
 
-                if type(model_struc_parameter_list[i][key_list[wcont2]]) is None:
-                    st.write('AquiAAAAA')
-                #avaliar pro tipo None
-
                 wcont2 = wcont2+1
 
-            mss_par_dict = dict(model_struc_parameter_list[i]) 
-            mss_par_list = list() 
+            model_struc_selec_par_dict = dict(model_struc_selec_parameter_list[i]) 
+            model_struc_selec_par_list = list() 
 
             for j in range(len(list(st.session_state))):
                 if list(st.session_state)[j].startswith('mss_par_'): 
-                    mss_par_list.append(list(st.session_state)[j])
-            mss_par_list = utils.sorter(mss_par_list)
-            st.write(mss_par_list)
-            for j in range(len(mss_par_list)):
-                mss_par_dict[list(model_struc_parameter_list[i])[j]] = st.session_state[mss_par_list[j]] 
-            mss_par_dict['basis_function'] = bf
-            st.write(mss_par_dict)
+                    model_struc_selec_par_list.append(list(st.session_state)[j])
+            model_struc_selec_par_list = utils.sorter(model_struc_selec_par_list)
+            st.write(model_struc_selec_par_list)
+            for j in range(len(model_struc_selec_par_list)):
+                model_struc_selec_par_dict[list(model_struc_selec_parameter_list[i])[j]] = st.session_state[model_struc_selec_par_list[j]] 
+            model_struc_selec_par_dict['basis_function'] = bf
+            st.write(model_struc_selec_par_dict)
     st.markdown("""---""")
 
-    mss_module = importlib.import_module('sysidentpy.model_structure_selection'+'.'+model_struc_dict[st.session_state['model_struc_select_key']][0])
-    mss = utils.str_to_class(model_struc_dict[st.session_state['model_struc_select_key']][1], mss_module)(**mss_par_dict)
-    st.write(mss.max_lag)
-    # mss.fit(X=x_train, y=y_train)
+    model_struc_selec_module = importlib.import_module('sysidentpy.model_structure_selection'+'.'+model_struc_dict[st.session_state['model_struc_select_key']][0])
+    model = utils.str_to_class(model_struc_dict[st.session_state['model_struc_select_key']][1], model_struc_selec_module)(**model_struc_selec_par_dict)
+    model.fit(X=x_train, y=y_train)
+    yhat = model.predict(X=x_valid, y=y_valid)
+    rrse = root_relative_squared_error(y_valid, yhat)
+    st.write(rrse)

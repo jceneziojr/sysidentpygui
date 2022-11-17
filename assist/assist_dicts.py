@@ -19,12 +19,12 @@ model_struc_dict = {
     'Meta model structure selection' :  ['meta_model_structure_selection','MetaMSS'],
     'Entropic regression' :  ['entropic_regression','ER']
 }
-model_struc_parameter_list = [
+model_struc_selec_parameter_list = [
     {   #FROLS
         'ylag' :  2,
         'xlag' :  2,
         'elag' :  2,
-        'order_selection' :  False,
+        'order_selection' :  True, #MUDAR DEPOIS PRA FALSE
         'info_criteria' :  "aic",
         # 'n_terms' :  None,
         'n_info_values' : 10,
