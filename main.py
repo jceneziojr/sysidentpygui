@@ -11,6 +11,11 @@ from sysidentpy.basis_function import *
 import numpy as np
 from sysidentpy.utils.generate_data import get_siso_data
 from sysidentpy.metrics import root_relative_squared_error
+from sysidentpy.utils.display_results import results
+import matplotlib.pyplot as plt
+from sysidentpy.residues.residues_correlation import compute_residues_autocorrelation, compute_cross_correlation
+import pickle as pk
+
 root = os.path.join(os.path.dirname(__file__)+'\\assist')
 path = os.path.join(root, "pagedesign.py")
 
@@ -74,13 +79,15 @@ with tab2:
                                                     #obtidos no widget
             bf_par_list = list() #lista p/ pegar as keys dos widgets e podermos atribuir os valores corretos ao dict acima
 
+            if utils.occurrence_check('bf_par_', list(st.session_state)) != len(utils.dict_values_to_list(basis_function_parameter_list[i])):
+                #quando troca de basis function, se o numero de parametros é menor, dá um erro porque tem keys a mais de session state
+                #aqui, apago os excedentes
+                for key in utils.session_state_cut(st.session_state, 'bf_par_', len(utils.dict_values_to_list(basis_function_parameter_list[i]))):
+                    del st.session_state[key]
+
             for j in range(len(list(st.session_state))): #pegando as keys de session state que tem o nome base para ser widget dos parametros de basis function
                 if list(st.session_state)[j].startswith('bf_par_'): 
                     bf_par_list.append(list(st.session_state)[j])
-
-                    #o streamlit, ele "demora um clique" pra resetar os session states, precisava
-                    #fazer um jeito de deletar os que são atribuidos aos widgets para n dar o erro de
-                    #list index out of range
 
             bf_par_list = sorted(bf_par_list) #a lista precisa estar em ordem alfabética para o próximo bloco
 
@@ -116,8 +123,21 @@ with tab2:
                             st.number_input(key_list[wcont2], key = k, min_value=0, value=model_struc_selec_parameter_list[i][key_list[wcont2]])
 
                 if model_struc_selec_parameter_list[i][key_list[wcont2]] is None:
-                    # st.number_input(key_list[wcont2], key = k, min_value=-50, value=model_struc_selec_parameter_list[i][key_list[wcont2]])
-                    st.write('Tipo None AQUI') #n ta funcionando n
+                    if key_list[wcont2] == 'basis_function': #a basis function é escolhida antes, então não precisamos do widget aqui
+                        pass
+                    elif key_list[wcont2] == 'n_terms': 
+                        if k not in st.session_state:
+                            st.session_state[k] = model_struc_selec_parameter_list[i][key_list[wcont2]]
+                        st.write(key_list[wcont2])
+                        if st.checkbox(''):
+                            st.number_input('', key = k, min_value=1, value=1)
+                        else:
+                            st.session_state[k] = model_struc_selec_parameter_list[i][key_list[wcont2]]
+                    else:
+                        st.write(key_list[wcont2])
+                        if st.checkbox(''):
+                            st.write('aqui')
+                        st.write('Tipo None AQUI')
 
                 if isinstance(model_struc_selec_parameter_list[i][key_list[wcont2]], float):
                     if model_struc_selec_parameter_list[i][key_list[wcont2]]<0.0:
@@ -138,6 +158,12 @@ with tab2:
             model_struc_selec_par_dict = dict(model_struc_selec_parameter_list[i]) 
             model_struc_selec_par_list = list() 
 
+            if utils.occurrence_check('mss_par_', list(st.session_state)) != len(utils.dict_values_to_list(model_struc_selec_parameter_list[i])):
+                #quando troca de basis function, se o numero de parametros é menor, dá um erro porque tem keys a mais de session state
+                #aqui, apago os excedentes
+                for key in utils.session_state_cut(st.session_state, 'mss_par_', len(utils.dict_values_to_list(model_struc_selec_parameter_list[i]))):
+                    del st.session_state[key]
+
             for j in range(len(list(st.session_state))):
                 if list(st.session_state)[j].startswith('mss_par_'): 
                     model_struc_selec_par_list.append(list(st.session_state)[j])
@@ -153,5 +179,34 @@ with tab2:
     model = utils.str_to_class(model_struc_dict[st.session_state['model_struc_select_key']][1], model_struc_selec_module)(**model_struc_selec_par_dict)
     model.fit(X=x_train, y=y_train)
     yhat = model.predict(X=x_valid, y=y_valid)
+    
+
+with tab3:
+    
+    st.write('Model Regressors')
+    r = pd.DataFrame(
+    results(
+        model.final_model, model.theta, model.err,
+        model.n_terms, err_precision=8, dtype='sci'
+        ),
+    columns=['Regressors', 'Parameters', 'ERR'])
+    st.dataframe(r)
+
+    ee = compute_residues_autocorrelation(y_valid, yhat)
+    x1e = compute_cross_correlation(y_valid, yhat, x_valid)
+
+    st.pyplot(utils.plot_results(y=y_valid, yhat=yhat, n=1000))
+    st.pyplot(utils.plot_residues_correlation(data=ee, title="Residues", ylabel="$e^2$"))
+    st.pyplot(utils.plot_residues_correlation(data=ee, title="Residues", ylabel="$e^2$"))
+    
+
+
     rrse = root_relative_squared_error(y_valid, yhat)
     st.write(rrse)
+
+with tab4:
+    st.download_button(
+    "Download Model",
+    data=pk.dumps(model),
+    file_name="my_model.syspy",
+    )

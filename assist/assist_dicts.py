@@ -26,7 +26,7 @@ model_struc_selec_parameter_list = [
         'elag' :  2,
         'order_selection' :  True, #MUDAR DEPOIS PRA FALSE
         'info_criteria' :  "aic",
-        # 'n_terms' :  None,
+        'n_terms' :  None,
         'n_info_values' : 10,
         'estimator' :  "recursive_least_squares",
         'extended_least_squares' :  False,
@@ -73,11 +73,11 @@ model_struc_selec_parameter_list = [
         'gama' : 0.2,
         'weight' : 0.02,
         'estimate_parameter' : True,
-        'loss_func' : "metamss_loss",
+        # 'loss_func' : "metamss_loss", #método da classe
         'model_type' : "NARMAX",
         'basis_function' : None,
-        'steps_ahead' : None,
-        'random_state' : None
+        # 'steps_ahead' : None,
+        # 'random_state' : None
     },
     {   #ER
         'ylag' : 2,
@@ -87,7 +87,7 @@ model_struc_selec_parameter_list = [
         'extended_least_squares' : False,
         'h' : 0.01,
         'k' : 2,
-        'mutual_information_estimator' : "mutual_information_knn",
+        # 'mutual_information_estimator' : "mutual_information_knn", #método da classe
         'n_perm' : 200,
         'p' : 1.797e307,
         'skip_forward' : False,
@@ -100,7 +100,7 @@ model_struc_selec_parameter_list = [
         'weight' : 0.02,
         'model_type' : "NARMAX",
         'basis_function' : None,
-        'random_state' : None
+        # 'random_state' : None
     }
 ]
 
