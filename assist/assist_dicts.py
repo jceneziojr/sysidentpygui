@@ -73,11 +73,11 @@ model_struc_selec_parameter_list = [
         'gama' : 0.2,
         'weight' : 0.02,
         'estimate_parameter' : True,
-        # 'loss_func' : "metamss_loss", #método da classe
+        # 'loss_func' : "metamss_loss", #método da classe, mas tem o aic e bic
         'model_type' : "NARMAX",
         'basis_function' : None,
-        # 'steps_ahead' : None,
-        # 'random_state' : None
+        # 'steps_ahead' : None, #não é o mesmo do predict
+        # 'random_state' : None #int
     },
     {   #ER
         'ylag' : 2,
