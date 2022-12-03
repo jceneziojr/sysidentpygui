@@ -13,14 +13,27 @@ basis_function_parameter_list = [
     }
 ]
 
-model_struc_dict = {
-    'Forward regression orthogonal least squares' :  ['forward_regression_orthogonal_least_squares','FROLS'],
+model_struc_dict = { #Nome que aparece, nome do arquivo, nome da classe
+    'Forward regression orthogonal least squares (compact)' :  ['forward_regression_orthogonal_least_squares','FROLS'],
+    'Forward regression orthogonal least squares (complete)' :  ['forward_regression_orthogonal_least_squares','FROLS'],
     'Accelerated orthogonal least squares' :  ['accelerated_orthogonal_least_squares','AOLS'],
-    'Meta model structure selection' :  ['meta_model_structure_selection','MetaMSS'],
-    'Entropic regression' :  ['entropic_regression','ER']
+    'Meta model structure selection (compact)' :  ['meta_model_structure_selection','MetaMSS'],
+    'Meta model structure selection (complete)' :  ['meta_model_structure_selection','MetaMSS'],
+    'Entropic regression (compact)' :  ['entropic_regression','ER'],
+    'Entropic regression (complete)' :  ['entropic_regression','ER']
 }
 model_struc_selec_parameter_list = [
-    {   #FROLS
+    { #FROLS compacto
+        'order_selection' :  True, #MUDAR DEPOIS PRA FALSE
+        'n_info_values' : 10,
+        'extended_least_squares' :  False,
+        'ylag' :  2,
+        'xlag' :  2,
+        'info_criteria' :  "aic",
+        'estimator' :  "recursive_least_squares",
+        'basis_function' :  None
+    },
+    {   #FROLS completo
         'ylag' :  2,
         'xlag' :  2,
         'elag' :  2,
@@ -49,7 +62,19 @@ model_struc_selec_parameter_list = [
         'model_type' : "NARMAX",
         'basis_function' : None
     },
-    {   #MetaMSS
+    {   #MetaMSS compacto
+        'maxiter' : 30,
+        'k_agents_percent' : 2,
+        'norm' : -2,
+        'n_agents' : 10,
+        'xlag' : 2,
+        'ylag' : 2,
+        'estimator' : "least_squares",
+        'estimate_parameter' : True,
+        # 'loss_func' : "metamss_loss", #método da classe, mas tem o aic e bic
+        'basis_function' : None
+    },
+    {   #MetaMSS completo
         'maxiter' : 30,
         'alpha' : 23,
         'g_zero' : 100,
@@ -79,7 +104,16 @@ model_struc_selec_parameter_list = [
         # 'steps_ahead' : None, #não é o mesmo do predict
         # 'random_state' : None #int
     },
-    {   #ER
+    {   #ER compacto
+        'ylag' : 2,
+        'xlag' : 2,
+        'estimator' : "least_squares",
+        'k' : 2,
+        'n_perm' : 200,
+        'skip_forward' : False,
+        'basis_function' : None
+    },
+    {   #ER completo
         'ylag' : 2,
         'xlag' : 2,
         'q' : 0.99,
