@@ -9,9 +9,9 @@ import assist.utils as utils
 import importlib
 from sysidentpy.basis_function import *
 from sysidentpy.model_structure_selection import *
+from sysidentpy.metrics import __ALL__ as metrics_list
 import numpy as np
-from sysidentpy.utils.generate_data import get_siso_data
-from sysidentpy.metrics import root_relative_squared_error
+import sysidentpy.metrics as metrics
 from sysidentpy.utils.display_results import results
 import matplotlib.pyplot as plt
 from sysidentpy.residues.residues_correlation import compute_residues_autocorrelation, compute_cross_correlation
@@ -27,29 +27,33 @@ tabl = ['Load Data', 'Model Setup', 'Model Validation and Metrics', 'Save Model'
 
 tab1, tab2, tab3, tab4 = st.tabs(tabl)
 
-x_train, x_valid, y_train, y_valid = get_siso_data(
-    n=1000,
-    colored_noise=False,
-    sigma=0.0001,
-    train_percentage=90)
-
 with tab1:
-    col1, esp1, col2 = st.columns([5,1,5])
+    col, esp0, col0 = st.columns([5,1,5])
 
-    with col1:
-        st.file_uploader("Data", key='id_data', help='Upload your  file')
-        if st.session_state['id_data'] != None:
-            data_id = pd.read_csv(st.session_state['id_data'], sep=' ')
-        #data_id
+    with col:
+        st.file_uploader("Input Data", key='x_data', help='Upload your CSV file')
+        if st.session_state['x_data'] != None:
+            data_x = pd.read_csv(st.session_state['x_data'])
 
-    st.markdown("""---""")
+    with col0:
+        st.file_uploader("Output Data", key='y_data', help='Upload your CSV file')
+        if st.session_state['y_data'] != None:
+            data_y = pd.read_csv(st.session_state['y_data'])
 
-with tab2:
-    col1, esp1, esp2 = st.columns([2, 1, 1.65]) #ajustando a largura dos widgets
+
+    if st.session_state['y_data'] != None and st.session_state['x_data'] != None: #não é o melhor jeito de fazer isso
+        x_train, x_valid = np.split(data_x.iloc[::500].values, 2)
+        y_train, y_valid = np.split(data_y.iloc[::500].values, 2)
+    
+
+    col1, esp1, esp2 = st.columns([2, 1, 7]) #ajustando a largura dos widgets
     with col1:
         st.number_input('Validating Percentage', 0.0, 100.0, value=15.0, key='val_perc')
-
     st.markdown("""---""")
+    with st.expander('Instructions'):
+        st.write('Load above your CSV input and output data, formated in a column.')
+
+with tab2:
 
     col2, esp3, esp4 = st.columns([2, 1, 1.65])
     with col2:
@@ -64,17 +68,17 @@ with tab2:
                 key_list = list(basis_function_parameter_list[i]) #essa lista das keys do dict de parametros, serve para acessar os values e ser a label dos widgets
                 while wcont1<len(utils.dict_values_to_list(basis_function_parameter_list[i])): #criando os widgets recursivamente, e atribuindo os nomes p/ os widgets
                     k = 'bf_par_' + str(wcont1)
-                    # st.write(isinstance(basis_function_parameter_list[i][key_list[wcont1]], bool))
+                    
                     if isinstance(basis_function_parameter_list[i][key_list[wcont1]], int):
                         if isinstance(basis_function_parameter_list[i][key_list[wcont1]], bool):
-                            st.write(key_list[wcont1])
+                            st.write(utils.adjust_string(key_list[wcont1]))
                             st.checkbox('', key = k, value=basis_function_parameter_list[i][key_list[wcont1]]) #no checkbox, a label é automaticamente a direita, então
                                                                                     #chamo antes em cima
                         else:
-                            st.number_input(key_list[wcont1], key = k, min_value=0, value=basis_function_parameter_list[i][key_list[wcont1]])
+                            st.number_input(utils.adjust_string(key_list[wcont1]), key = k, min_value=0, value=basis_function_parameter_list[i][key_list[wcont1]])
                             
                     if isinstance(basis_function_parameter_list[i][key_list[wcont1]], float):
-                        st.number_input(key_list[wcont1], key = k, min_value=0.0, value=basis_function_parameter_list[i][key_list[wcont1]], format="%5.3e", step=basis_function_parameter_list[i][key_list[wcont1]]/10)
+                        st.number_input(utils.adjust_string(key_list[wcont1]), key = k, min_value=0.0, value=basis_function_parameter_list[i][key_list[wcont1]], format="%5.3e", step=basis_function_parameter_list[i][key_list[wcont1]]/10)
 
                     if isinstance(basis_function_parameter_list[i][key_list[wcont1]], str):
                         st.write('string') 
@@ -99,13 +103,10 @@ with tab2:
 
                 for j in range(len(bf_par_list)): #refazendo o dicionário para os argumentos do objeto da basis function
                     bf_par_dict[list(basis_function_parameter_list[i])[j]] = st.session_state[bf_par_list[j]] 
-            
-                st.write(bf_par_dict)
     st.markdown("""---""")
     
     bf_module = importlib.import_module('sysidentpy.basis_function._basis_function') #pegando o arquivo onde tá a classe da basis function
     bf = utils.str_to_class(st.session_state['basis_function_key'], bf_module)(**bf_par_dict) #instanciando a basis function
-
 
     col3, esp5, esp6 = st.columns([3, 1, 1.6])
     with col3:
@@ -124,13 +125,13 @@ with tab2:
 
                     if isinstance(model_struc_selec_parameter_list[i][key_list[wcont2]], int):
                         if isinstance(model_struc_selec_parameter_list[i][key_list[wcont2]], bool):
-                            st.write(key_list[wcont2])
+                            st.write(utils.adjust_string(key_list[wcont2]))
                             st.checkbox('', key = k, value=model_struc_selec_parameter_list[i][key_list[wcont2]]) 
                         else:
                             if model_struc_selec_parameter_list[i][key_list[wcont2]]<0:
-                                st.number_input(key_list[wcont2], key = k, min_value=-50, value=model_struc_selec_parameter_list[i][key_list[wcont2]])
+                                st.number_input(utils.adjust_string(key_list[wcont2]), key = k, min_value=-50, value=model_struc_selec_parameter_list[i][key_list[wcont2]])
                             else:
-                                st.number_input(key_list[wcont2], key = k, min_value=0, value=model_struc_selec_parameter_list[i][key_list[wcont2]])
+                                st.number_input(utils.adjust_string(key_list[wcont2]), key = k, min_value=0, value=model_struc_selec_parameter_list[i][key_list[wcont2]])
 
                     if model_struc_selec_parameter_list[i][key_list[wcont2]] is None:
                         if key_list[wcont2] == 'basis_function': #a basis function é escolhida antes, então não precisamos do widget aqui
@@ -138,11 +139,8 @@ with tab2:
                         elif key_list[wcont2] == 'n_terms': 
                             if k not in st.session_state:
                                 st.session_state[k] = model_struc_selec_parameter_list[i][key_list[wcont2]]
-                            st.write(key_list[wcont2])
-                            if st.checkbox(''):
-                                st.number_input('', key = k, min_value=1, value=1)
-                            else:
-                                st.session_state[k] = model_struc_selec_parameter_list[i][key_list[wcont2]]
+                            if 'n_terms' in st.session_state:
+                                st.session_state[k] = st.session_state['n_terms']
                         else:
                             st.write(key_list[wcont2])
                             if st.checkbox(''):
@@ -151,18 +149,24 @@ with tab2:
 
                     if isinstance(model_struc_selec_parameter_list[i][key_list[wcont2]], float):
                         if model_struc_selec_parameter_list[i][key_list[wcont2]]<0.0:
-                            st.number_input(key_list[wcont2], key = k, min_value=-50.0, value=model_struc_selec_parameter_list[i][key_list[wcont2]], format="%5.3e", step=model_struc_selec_parameter_list[i][key_list[wcont2]]/10)
+                            st.number_input(utils.adjust_string(key_list[wcont2]), key = k, min_value=-50.0, value=model_struc_selec_parameter_list[i][key_list[wcont2]], format="%5.3e", step=model_struc_selec_parameter_list[i][key_list[wcont2]]/10)
                         else:
-                            st.number_input(key_list[wcont2], key = k, min_value=0.0, value=model_struc_selec_parameter_list[i][key_list[wcont2]], format="%5.3e", step=model_struc_selec_parameter_list[i][key_list[wcont2]]/10)                                                                               
+                            st.number_input(utils.adjust_string(key_list[wcont2]), key = k, min_value=0.0, value=model_struc_selec_parameter_list[i][key_list[wcont2]], format="%5.3e", step=model_struc_selec_parameter_list[i][key_list[wcont2]]/10)                                                                               
                     
                     if isinstance(model_struc_selec_parameter_list[i][key_list[wcont2]], str): #os valores padrão não vem do dicionário externo, porque o valor padrão é o primeiro elemento da lista que passamos como opções
                         if key_list[wcont2] == 'info_criteria': 
-                            st.selectbox(key_list[wcont2], ic_list, key = k)
+                            st.selectbox(utils.adjust_string(key_list[wcont2]), ic_list, key = k)
                         if key_list[wcont2] == 'estimator':
-                            st.selectbox(key_list[wcont2], estimators_list, key = k)
+                            st.selectbox(utils.adjust_string(key_list[wcont2]), estimators_list, key = k)
                         if key_list[wcont2] == 'model_type':
-                            st.selectbox(key_list[wcont2], model_type_list, key = k)
+                            st.selectbox(utils.adjust_string(key_list[wcont2]), model_type_list, key = k)
 
+                    if key_list[wcont2] == 'order_selection': #se esse parametro for falso, um n_terms tem que ser escolhido
+                        if st.session_state[k] == False:
+                            st.number_input(utils.adjust_string('n_terms'), key = 'n_terms', min_value=1)
+                        else:
+                            st.session_state['n_terms'] = model_struc_selec_parameter_list[i]['n_terms']
+                    
                     wcont2 = wcont2+1
 
                 model_struc_selec_par_dict = dict(model_struc_selec_parameter_list[i]) 
@@ -182,42 +186,61 @@ with tab2:
                 for j in range(len(model_struc_selec_par_list)):
                     model_struc_selec_par_dict[list(model_struc_selec_parameter_list[i])[j]] = st.session_state[model_struc_selec_par_list[j]] 
                 model_struc_selec_par_dict['basis_function'] = bf
-    st.write(model_struc_selec_par_list)
+                if 'n_terms' in model_struc_selec_par_list[i]:
+                    model_struc_selec_par_dict['n_terms'] = st.session_state['n_terms']
+
     st.write(model_struc_selec_par_dict)
     st.markdown("""---""")
 
     model_struc_selec_module = importlib.import_module('sysidentpy.model_structure_selection'+'.'+model_struc_dict[st.session_state['model_struc_select_key']][0])
     model = utils.str_to_class(model_struc_dict[st.session_state['model_struc_select_key']][1], model_struc_selec_module)(**model_struc_selec_par_dict)
     
-    if isinstance(model, MetaMSS): #MetaMSS tem métodos diferentes
-        model.fit(X_train=x_train, y_train=y_train, X_test=x_valid, y_test=y_valid)
-        yhat = model.predict(X_test=x_valid, y_test=y_valid)
-    else:
-        model.fit(X=x_train, y=y_train)
-        yhat = model.predict(X=x_valid, y=y_valid)    
+    st.write('Predict Options')
+    if st.session_state['y_data'] != None and st.session_state['x_data'] != None:#não é o melhor jeito de fazer isso
+        if isinstance(model, MetaMSS): #MetaMSS tem métodos diferentes
+            model.fit(X_train=x_train, y_train=y_train, X_test=x_valid, y_test=y_valid)
+            yhat = model.predict(X_test=x_valid, y_test=y_valid)
+        else:
+            model.fit(X=x_train, y=y_train)
+            if 'steps_ahead' not in st.session_state:
+                st.session_state['steps_ahead'] = None
+            if 'forecast_horizon' not in st.session_state:
+                st.session_state['forecast_horizon'] = None
+            st.write('Free Run Simulation')
+            if st.checkbox('', value=True) is False:
+                st.number_input('Steps Ahead', key = 'steps_ahead', min_value=1)
+                st.number_input('Forecast Horizon', key = 'forecast_horizon', min_value=1)
+            yhat = model.predict(X=x_valid, y=y_valid, steps_ahead=st.session_state['steps_ahead'], forecast_horizon=st.session_state['forecast_horizon'])    
 
 with tab3:
-    
-    st.write('Model Regressors')
-    r = pd.DataFrame(
-    results(
-        model.final_model, model.theta, model.err,
-        model.n_terms, err_precision=8, dtype='sci'
-        ),
-    columns=['Regressors', 'Parameters', 'ERR'])
-    st.dataframe(r)
+    if st.session_state['y_data'] != None and st.session_state['x_data'] != None: #não é o melhor jeito de fazer isso
+        st.write('Model Regressors')
+        r = pd.DataFrame(
+        results(
+            model.final_model, model.theta, model.err,
+            model.n_terms, err_precision=8, dtype='sci'
+            ),
+        columns=['Regressors', 'Parameters', 'ERR'])
+        st.dataframe(r)
 
-    ee = compute_residues_autocorrelation(y_valid, yhat)
-    x1e = compute_cross_correlation(y_valid, yhat, x_valid)
+        ee = compute_residues_autocorrelation(y_valid, yhat)
+        x1e = compute_cross_correlation(y_valid, yhat, x_valid)
 
-    st.pyplot(utils.plot_results(y=y_valid, yhat=yhat, n=1000))
-    st.pyplot(utils.plot_residues_correlation(data=ee, title="Residues", ylabel="$e^2$"))
-    st.pyplot(utils.plot_residues_correlation(data=ee, title="Residues", ylabel="$e^2$"))
-    
-
-
-    rrse = root_relative_squared_error(y_valid, yhat)
-    st.write(rrse)
+        with st.expander('Graphics'):
+            st.pyplot(utils.plot_results(y=y_valid, yhat=yhat, n=1000))
+            st.pyplot(utils.plot_residues_correlation(data=ee, title="Residues", ylabel="$e^2$"))
+            st.pyplot(utils.plot_residues_correlation(data=ee, title="Residues", ylabel="$e^2$"))
+        
+        with st.expander('Metrics'):
+            for index in range(len(metrics_list)):
+                if metrics_list[index] == 'r2_score':
+                    pass
+                else:
+                    st.write(metrics_list[index])
+                    if metrics_list[index] == 'forecast_error':
+                        st.write(getattr(metrics, metrics_list[index])(y_valid, yhat).transpose())
+                    else:
+                        st.write(getattr(metrics, metrics_list[index])(y_valid, yhat))
 
 with tab4:
     st.download_button(
@@ -225,3 +248,5 @@ with tab4:
     data=pk.dumps(model),
     file_name="my_model.syspy",
     )
+
+    st.write(utils.adjust_string('least'))

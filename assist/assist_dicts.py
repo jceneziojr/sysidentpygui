@@ -24,7 +24,8 @@ model_struc_dict = { #Nome que aparece, nome do arquivo, nome da classe
 }
 model_struc_selec_parameter_list = [
     { #FROLS compacto
-        'order_selection' :  True, #MUDAR DEPOIS PRA FALSE
+        'order_selection' :  True, #o valor padrão é False, mas acho q faz mais sentido ser True aqui
+        'n_terms' :  None,
         'n_info_values' : 10,
         'extended_least_squares' :  False,
         'ylag' :  2,
@@ -37,7 +38,7 @@ model_struc_selec_parameter_list = [
         'ylag' :  2,
         'xlag' :  2,
         'elag' :  2,
-        'order_selection' :  True, #MUDAR DEPOIS PRA FALSE
+        'order_selection' :  True, 
         'info_criteria' :  "aic",
         'n_terms' :  None,
         'n_info_values' : 10,

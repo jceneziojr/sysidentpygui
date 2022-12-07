@@ -106,3 +106,7 @@ def plot_residues_correlation(
     ax.set_title(title, fontsize=18)
 
     return fig
+
+def adjust_string(label_string):
+    spaced_string = ' '.join(label_string.split('_'))
+    return spaced_string.capitalize()
