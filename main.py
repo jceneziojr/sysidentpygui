@@ -54,7 +54,6 @@ with tab1:
         st.write('Load above your CSV input and output data, formated in a column.')
 
 with tab2:
-
     col2, esp3, esp4 = st.columns([2, 1, 1.65])
     with col2:
         st.selectbox('Basis Function', basis_function_list, key='basis_function_key') #escolhendo a basis function
@@ -231,16 +230,19 @@ with tab3:
             st.pyplot(utils.plot_residues_correlation(data=ee, title="Residues", ylabel="$e^2$"))
             st.pyplot(utils.plot_residues_correlation(data=ee, title="Residues", ylabel="$e^2$"))
         
+        metrics_df = dict()
+        metrics_namelist = list() 
+        metrics_vallist = list() #criando listas separadas deixa mais bonito
         with st.expander('Metrics'):
             for index in range(len(metrics_list)):
-                if metrics_list[index] == 'r2_score':
+                if metrics_list[index] == 'r2_score' or metrics_list[index] == 'forecast_error':
                     pass
                 else:
-                    st.write(metrics_list[index])
-                    if metrics_list[index] == 'forecast_error':
-                        st.write(getattr(metrics, metrics_list[index])(y_valid, yhat).transpose())
-                    else:
-                        st.write(getattr(metrics, metrics_list[index])(y_valid, yhat))
+                    metrics_namelist.append(utils.get_acronym(utils.adjust_string(metrics_list[index])))
+                    metrics_vallist.append(getattr(metrics, metrics_list[index])(y_valid, yhat))
+            metrics_df["Metric Name"] = metrics_namelist
+            metrics_df["Value"] = metrics_vallist
+            st.dataframe(pd.DataFrame(metrics_df))
 
 with tab4:
     st.download_button(
@@ -248,5 +250,3 @@ with tab4:
     data=pk.dumps(model),
     file_name="my_model.syspy",
     )
-
-    st.write(utils.adjust_string('least'))

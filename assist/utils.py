@@ -110,3 +110,11 @@ def plot_residues_correlation(
 def adjust_string(label_string):
     spaced_string = ' '.join(label_string.split('_'))
     return spaced_string.capitalize()
+
+def get_acronym(string):
+    oupt = string[0]
+    
+    for i in range(1, len(string)):
+        if string[i-1] == ' ':
+            oupt += string[i]
+    return oupt.upper()
