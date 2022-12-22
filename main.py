@@ -16,6 +16,8 @@ from sysidentpy.utils.display_results import results
 import matplotlib.pyplot as plt
 from sysidentpy.residues.residues_correlation import compute_residues_autocorrelation, compute_cross_correlation
 import pickle as pk
+from math import floor
+import csv
 
 root = os.path.join(os.path.dirname(__file__)+'\\assist')
 path = os.path.join(root, "pagedesign.py")
@@ -40,19 +42,20 @@ with tab1:
         if st.session_state['y_data'] != None:
             data_y = pd.read_csv(st.session_state['y_data'])
 
-
-    if st.session_state['y_data'] != None and st.session_state['x_data'] != None: #não é o melhor jeito de fazer isso
-        x_train, x_valid = np.split(data_x.iloc[::500].values, 2)
-        y_train, y_valid = np.split(data_y.iloc[::500].values, 2)
-    
-
     col1, esp1, esp2 = st.columns([2, 1, 7]) #ajustando a largura dos widgets
     with col1:
         st.number_input('Validating Percentage', 0.0, 100.0, value=15.0, key='val_perc')
     st.markdown("""---""")
     with st.expander('Instructions'):
-        st.write('Load above your CSV input and output data, formated in a column.')
+        st.write('Load above your CSV input and output data, formated in a column. Then, set the percentage of the data that will be use as validation data.')
+        st.write('For better performance, load your data after setting up your model.')
 
+
+    if st.session_state['y_data'] != None and st.session_state['x_data'] != None: #não é o melhor jeito de fazer isso
+        perc_index = floor(data_x.shape[0] - data_x.shape[0]*(st.session_state['val_perc']/100))
+        x_train, x_valid = data_x[0:perc_index].to_numpy(), data_x[perc_index:].to_numpy() #o formato padrão é ndarray
+        y_train, y_valid = data_y[0:perc_index].to_numpy(), data_y[perc_index:].to_numpy()
+        
 with tab2:
     col2, esp3, esp4 = st.columns([2, 1, 1.65])
     with col2:
