@@ -102,7 +102,7 @@ model_struc_selec_parameter_list = [
         # 'loss_func' : "metamss_loss", #método da classe, mas tem o aic e bic
         'model_type' : "NARMAX",
         'basis_function' : None,
-        # 'steps_ahead' : None, #não é o mesmo do predict
+        #'steps_ahead' : None, #não é o mesmo do predict
         # 'random_state' : None #int
     },
     {   #ER compacto

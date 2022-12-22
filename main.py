@@ -201,7 +201,15 @@ with tab2:
     if st.session_state['y_data'] != None and st.session_state['x_data'] != None:#não é o melhor jeito de fazer isso
         if isinstance(model, MetaMSS): #MetaMSS tem métodos diferentes
             model.fit(X_train=x_train, y_train=y_train, X_test=x_valid, y_test=y_valid)
-            yhat = model.predict(X_test=x_valid, y_test=y_valid)
+            if 'steps_ahead' not in st.session_state:
+                st.session_state['steps_ahead'] = None
+            if 'forecast_horizon' not in st.session_state:
+                st.session_state['forecast_horizon'] = None
+            st.write('Free Run Simulation')
+            if st.checkbox('', value=True) is False:
+                st.number_input('Steps Ahead', key = 'steps_ahead', min_value=1)
+                st.number_input('Forecast Horizon', key = 'forecast_horizon', min_value=1)
+            yhat = model.predict(X_test=x_valid, y_test=y_valid, steps_ahead=st.session_state['steps_ahead'], forecast_horizon=st.session_state['forecast_horizon'])    
         else:
             model.fit(X=x_train, y=y_train)
             if 'steps_ahead' not in st.session_state:
