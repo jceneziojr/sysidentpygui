@@ -237,9 +237,9 @@ with tab3:
         x1e = compute_cross_correlation(y_valid, yhat, x_valid)
 
         with st.expander('Graphics'):
-            st.pyplot(utils.plot_results(y=y_valid, yhat=yhat, n=1000))
-            st.pyplot(utils.plot_residues_correlation(data=ee, title="Residues", ylabel="$e^2$"))
-            st.pyplot(utils.plot_residues_correlation(data=ee, title="Residues", ylabel="$e^2$"))
+            st.image(utils.plot_results(y=y_valid, yhat=yhat, n=1000))
+            st.image(utils.plot_residues_correlation(data=ee, title="Residues", ylabel="$e^2$"))
+            st.image(utils.plot_residues_correlation(data=ee, title="Residues", ylabel="$e^2$", second_fig=True))
         
         metrics_df = dict()
         metrics_namelist = list() 

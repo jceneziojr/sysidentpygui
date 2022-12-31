@@ -127,5 +127,12 @@ dmypy.json
 
 # Pyre type checker
 .pyre/
+
+# Tests files and folders
 /testes
 forms_teste.py
+
+# The temp_figs folder must exist, but being remain empty
+/temp_figs/residues_fig_1.png
+/temp_figs/residues_fig_2.png
+/temp_figs/results_fig.png

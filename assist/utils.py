@@ -2,6 +2,7 @@ import streamlit as st
 import sys
 import re
 import matplotlib.pyplot as plt
+from PIL import Image
 
 def addlogo():
     st.markdown("""<img src="https://i.imgur.com/zOcSUib.png" alt="logo" class="center"> """, unsafe_allow_html=True) #adiciona a logo
@@ -82,7 +83,9 @@ def plot_results(
     ax.set_xlabel("Samples", fontsize=14)
     ax.set_ylabel("y, $\hat{y}$", fontsize=14)
 
-    return fig
+    fig.savefig('temp_figs//results_fig.png')
+    image = Image.open('temp_figs//results_fig.png')
+    return image
 
 def plot_residues_correlation(
     data=None,
@@ -92,7 +95,8 @@ def plot_residues_correlation(
     style="seaborn-white",
     facecolor="white",
     title="Residual Analysis",
-    ylabel="Correlation"
+    ylabel="Correlation",
+    second_fig = False
 ):
     plt.style.use(style)
     plt.rcParams["axes.facecolor"] = facecolor
@@ -105,7 +109,13 @@ def plot_residues_correlation(
     ax.set_ylim([-1, 1])
     ax.set_title(title, fontsize=18)
 
-    return fig
+    if second_fig == True:
+        fig.savefig('temp_figs//residues_fig_2.png')
+        image = Image.open('temp_figs//residues_fig_2.png')
+    else:
+        fig.savefig('temp_figs//residues_fig_1.png')
+        image = Image.open('temp_figs//residues_fig_1.png')
+    return image
 
 def adjust_string(label_string):
     spaced_string = ' '.join(label_string.split('_'))
