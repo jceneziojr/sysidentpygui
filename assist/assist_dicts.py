@@ -32,6 +32,7 @@ model_struc_selec_parameter_list = [
         'xlag' :  2,
         'info_criteria' :  "aic",
         'estimator' :  "recursive_least_squares",
+        'model_type' :  "NARMAX",
         'basis_function' :  None
     },
     {   #FROLS completo
@@ -72,7 +73,8 @@ model_struc_selec_parameter_list = [
         'ylag' : 2,
         'estimator' : "least_squares",
         'estimate_parameter' : True,
-        # 'loss_func' : "metamss_loss", #método da classe, mas tem o aic e bic
+        'loss_func' : "metamss_loss",
+        'model_type' : "NARMAX",
         'basis_function' : None
     },
     {   #MetaMSS completo
@@ -99,10 +101,10 @@ model_struc_selec_parameter_list = [
         'gama' : 0.2,
         'weight' : 0.02,
         'estimate_parameter' : True,
-        # 'loss_func' : "metamss_loss", #método da classe, mas tem o aic e bic
+        'loss_func' : "metamss_loss",
         'model_type' : "NARMAX",
         'basis_function' : None,
-        #'steps_ahead' : None, #não é o mesmo do predict
+        'steps_ahead' : None, #não é o mesmo do predict
         # 'random_state' : None #int
     },
     {   #ER compacto
@@ -112,6 +114,7 @@ model_struc_selec_parameter_list = [
         'k' : 2,
         'n_perm' : 200,
         'skip_forward' : False,
+        'model_type' : "NARMAX",
         'basis_function' : None
     },
     {   #ER completo
@@ -148,3 +151,5 @@ estimators_list = ['least_squares', 'total_least_squares', 'recursive_least_squa
                     'least_mean_squares_fourth', 'least_mean_squares_mixed_norm']
 
 model_type_list = ['NARMAX', 'NAR', 'NFIR']
+
+los_func_list = ['metamss_loss', 'aic', 'bic']

@@ -4,7 +4,7 @@
 import streamlit as st
 import os 
 import pandas as pd
-from assist.assist_dicts import basis_function_list, basis_function_parameter_list, model_struc_dict, model_struc_selec_parameter_list, ic_list, estimators_list, model_type_list
+from assist.assist_dicts import basis_function_list, basis_function_parameter_list, model_struc_dict, model_struc_selec_parameter_list, ic_list, estimators_list, model_type_list, los_func_list
 import assist.utils as utils
 import importlib
 from sysidentpy.basis_function import *
@@ -143,10 +143,17 @@ with tab2:
                                 st.session_state[k] = model_struc_selec_parameter_list[i][key_list[wcont2]]
                             if 'n_terms' in st.session_state:
                                 st.session_state[k] = st.session_state['n_terms']
+                        elif key_list[wcont2] == 'steps_ahead':
+                            if k not in st.session_state:
+                                st.session_state[k] = model_struc_selec_parameter_list[i][key_list[wcont2]]
+                            if 'steps_ahead' in st.session_state:
+                                st.session_state[k] = st.session_state['steps_ahead']
+                            st.write(utils.adjust_string(key_list[wcont2]))
+                            st.checkbox(' ', key='sa_c')
                         else:
                             st.write(key_list[wcont2])
                             if st.checkbox(''):
-                                st.write('aqui')
+                                st.write('')
                             st.write('Tipo None AQUI')
 
                     if isinstance(model_struc_selec_parameter_list[i][key_list[wcont2]], float):
@@ -162,6 +169,8 @@ with tab2:
                             st.selectbox(utils.adjust_string(key_list[wcont2]), estimators_list, key = k)
                         if key_list[wcont2] == 'model_type':
                             st.selectbox(utils.adjust_string(key_list[wcont2]), model_type_list, key = k)
+                        if key_list[wcont2] == 'loss_func':
+                            st.selectbox(utils.adjust_string(key_list[wcont2]), los_func_list, key = k)
 
                     if key_list[wcont2] == 'order_selection': #se esse parametro for falso, um n_terms tem que ser escolhido
                         if st.session_state[k] == False:
@@ -169,6 +178,11 @@ with tab2:
                         else:
                             st.session_state['n_terms'] = model_struc_selec_parameter_list[i]['n_terms']
                     
+                    if key_list[wcont2] == 'steps_ahead':
+                        if st.session_state['sa_c'] == True:
+                            st.number_input(' ', key = 'steps_ahead', min_value=1)
+                        else:
+                            st.session_state['steps_ahead'] = model_struc_selec_parameter_list[i]['steps_ahead']
                     wcont2 = wcont2+1
 
                 model_struc_selec_par_dict = dict(model_struc_selec_parameter_list[i]) 
@@ -188,10 +202,11 @@ with tab2:
                 for j in range(len(model_struc_selec_par_list)):
                     model_struc_selec_par_dict[list(model_struc_selec_parameter_list[i])[j]] = st.session_state[model_struc_selec_par_list[j]] 
                 model_struc_selec_par_dict['basis_function'] = bf
-                if 'n_terms' in model_struc_selec_par_list[i]:
+                if 'n_terms' in model_struc_selec_parameter_list[i]:
                     model_struc_selec_par_dict['n_terms'] = st.session_state['n_terms']
+                if 'steps_ahead' in model_struc_selec_parameter_list[i]:
+                    model_struc_selec_par_dict['steps_ahead'] = st.session_state['steps_ahead']
 
-    st.write(model_struc_selec_par_dict)
     st.markdown("""---""")
 
     model_struc_selec_module = importlib.import_module('sysidentpy.model_structure_selection'+'.'+model_struc_dict[st.session_state['model_struc_select_key']][0])
@@ -206,9 +221,10 @@ with tab2:
             if 'forecast_horizon' not in st.session_state:
                 st.session_state['forecast_horizon'] = None
             st.write('Free Run Simulation')
-            if st.checkbox('', value=True) is False:
+            if st.checkbox('', value=True, key='free_run') is False:
                 st.number_input('Steps Ahead', key = 'steps_ahead', min_value=1)
-                st.number_input('Forecast Horizon', key = 'forecast_horizon', min_value=1)
+                if model.model_type == 'NAR':
+                    st.number_input('Forecast Horizon', key = 'forecast_horizon', min_value=1)
             yhat = model.predict(X_test=x_valid, y_test=y_valid, steps_ahead=st.session_state['steps_ahead'], forecast_horizon=st.session_state['forecast_horizon'])    
         else:
             model.fit(X=x_train, y=y_train)
@@ -217,10 +233,14 @@ with tab2:
             if 'forecast_horizon' not in st.session_state:
                 st.session_state['forecast_horizon'] = None
             st.write('Free Run Simulation')
-            if st.checkbox('', value=True) is False:
+            if st.checkbox('', value=True, key='free_run') is False:
                 st.number_input('Steps Ahead', key = 'steps_ahead', min_value=1)
-                st.number_input('Forecast Horizon', key = 'forecast_horizon', min_value=1)
+                if model.model_type == 'NAR':
+                    st.number_input('Forecast Horizon', key = 'forecast_horizon', min_value=1)
             yhat = model.predict(X=x_valid, y=y_valid, steps_ahead=st.session_state['steps_ahead'], forecast_horizon=st.session_state['forecast_horizon'])    
+    
+    st.session_state
+    st.write(model_struc_selec_par_dict)
 
 with tab3:
     if st.session_state['y_data'] != None and st.session_state['x_data'] != None: #não é o melhor jeito de fazer isso
@@ -236,11 +256,15 @@ with tab3:
         ee = compute_residues_autocorrelation(y_valid, yhat)
         x1e = compute_cross_correlation(y_valid, yhat, x_valid)
 
-        with st.expander('Graphics'):
-            st.image(utils.plot_results(y=y_valid, yhat=yhat, n=1000))
+        with st.expander('Results Plot'):
+            if st.session_state['free_run'] == True:
+                st.image(utils.plot_results(y=y_valid, yhat=yhat, n=1000))
+            else:
+                st.image(utils.plot_results(y=y_valid, yhat=yhat, n=1000, title=str(st.session_state['steps_ahead'])+' Steps ahead simulation'))
+        with st.expander('Residues Plot'):
             st.image(utils.plot_residues_correlation(data=ee, title="Residues", ylabel="$e^2$"))
             st.image(utils.plot_residues_correlation(data=ee, title="Residues", ylabel="$e^2$", second_fig=True))
-        
+
         metrics_df = dict()
         metrics_namelist = list() 
         metrics_vallist = list() #criando listas separadas deixa mais bonito
@@ -261,3 +285,5 @@ with tab4:
     data=pk.dumps(model),
     file_name="my_model.syspy",
     )
+
+
