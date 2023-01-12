@@ -128,3 +128,9 @@ def get_acronym(string):
         if string[i-1] == ' ':
             oupt += string[i]
     return oupt.upper()
+
+def get_lags_list(n):
+    lags = []
+    for i in range(1,n+1):
+        lags.append(i)
+    return lags

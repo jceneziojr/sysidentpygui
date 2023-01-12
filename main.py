@@ -47,7 +47,7 @@ with tab1:
         st.number_input('Validating Percentage', 0.0, 100.0, value=15.0, key='val_perc')
     st.markdown("""---""")
     with st.expander('Instructions'):
-        st.write('Load above your CSV input and output data, formated in a column. Then, set the percentage of the data that will be use as validation data.')
+        st.write('Load above your CSV input and output data, formatted in a column (in case of multiple inputs, use a tab as a separator). Then, set the percentage of the data that will be use as validation data.')
         st.write('For better performance, load your data after setting up your model.')
 
 
@@ -133,7 +133,12 @@ with tab2:
                             if model_struc_selec_parameter_list[i][key_list[wcont2]]<0:
                                 st.number_input(utils.adjust_string(key_list[wcont2]), key = k, min_value=-50, value=model_struc_selec_parameter_list[i][key_list[wcont2]])
                             else:
-                                st.number_input(utils.adjust_string(key_list[wcont2]), key = k, min_value=0, value=model_struc_selec_parameter_list[i][key_list[wcont2]])
+                                if key_list[wcont2] == 'xlag':
+                                    st.write('aqui')
+                                    st.number_input(utils.adjust_string(key_list[wcont2]), key = 'x_lag', min_value=0, value=model_struc_selec_parameter_list[i][key_list[wcont2]])
+                                    st.multiselect('Select the desired lags', utils.get_lags_list(st.session_state['x_lag']), default=utils.get_lags_list(st.session_state['x_lag']), key = k)
+                                else:
+                                    st.number_input(utils.adjust_string(key_list[wcont2]), key = k, min_value=0, value=model_struc_selec_parameter_list[i][key_list[wcont2]])
 
                     if model_struc_selec_parameter_list[i][key_list[wcont2]] is None:
                         if key_list[wcont2] == 'basis_function': #a basis function é escolhida antes, então não precisamos do widget aqui
