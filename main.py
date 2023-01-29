@@ -160,8 +160,8 @@ with tab2:
                             elif key_list[wcont2] == 'steps_ahead':
                                 if k not in st.session_state:
                                     st.session_state[k] = model_struc_selec_parameter_list[i][key_list[wcont2]]
-                                if 'steps_ahead' in st.session_state:
-                                    st.session_state[k] = st.session_state['steps_ahead']
+                                if 'steps_aheadmss' in st.session_state:
+                                    st.session_state[k] = st.session_state['steps_aheadmss']
                                 st.write(utils.adjust_string(key_list[wcont2]))
                                 st.checkbox(' ', key='sa_c')
                             else:
@@ -194,9 +194,9 @@ with tab2:
                         
                         if key_list[wcont2] == 'steps_ahead':
                             if st.session_state['sa_c'] == True:
-                                st.number_input(' ', key = 'steps_ahead', min_value=1)
+                                st.number_input(' ', key = 'steps_aheadmss', min_value=1)
                             else:
-                                st.session_state['steps_ahead'] = model_struc_selec_parameter_list[i]['steps_ahead']
+                                st.session_state['steps_aheadmss'] = model_struc_selec_parameter_list[i]['steps_ahead']
                         wcont2 = wcont2+1
 
                     model_struc_selec_par_dict = dict(model_struc_selec_parameter_list[i]) 
@@ -219,7 +219,7 @@ with tab2:
                     if 'n_terms' in model_struc_selec_parameter_list[i]:
                         model_struc_selec_par_dict['n_terms'] = st.session_state['n_terms']
                     if 'steps_ahead' in model_struc_selec_parameter_list[i]:
-                        model_struc_selec_par_dict['steps_ahead'] = st.session_state['steps_ahead']
+                        model_struc_selec_par_dict['steps_ahead'] = st.session_state['steps_aheadmss']
 
         st.markdown("""---""")
 
