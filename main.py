@@ -281,7 +281,7 @@ with tab3:
                 st.image(utils.plot_results(y=y_valid, yhat=yhat, n=1000, title=str(st.session_state['steps_ahead'])+' Steps ahead simulation'))
         with st.expander('Residues Plot'):
             st.image(utils.plot_residues_correlation(data=ee, title="Residues", ylabel="$e^2$"))
-            st.image(utils.plot_residues_correlation(data=ee, title="Residues", ylabel="$e^2$", second_fig=True))
+            st.image(utils.plot_residues_correlation(data=x1e, title="Residues", ylabel="$x_1e$", second_fig=True))
 
         metrics_df = dict()
         metrics_namelist = list() 
