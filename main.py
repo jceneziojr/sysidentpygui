@@ -122,12 +122,10 @@ with tab2:
             for i in range(len(model_struc_dict)):
 
                 if st.session_state['model_struc_select_key'] == list(model_struc_dict)[i]: 
-                
                     wcont2 = 0 
                     key_list = list(model_struc_selec_parameter_list[i]) 
                     while wcont2<len(utils.dict_values_to_list(model_struc_selec_parameter_list[i])):
                         k = 'mss_par_' + str(wcont2)
-
                         if isinstance(model_struc_selec_parameter_list[i][key_list[wcont2]], int):
                             if isinstance(model_struc_selec_parameter_list[i][key_list[wcont2]], bool):
                                 st.write(utils.adjust_string(key_list[wcont2]))
@@ -138,16 +136,20 @@ with tab2:
                                 else:
                                     if key_list[wcont2] == 'xlag':
                                         if x_train.shape[1]==1:
-                                            st.number_input(utils.adjust_string(key_list[wcont2]), key = 'x_lag', min_value=0, value=model_struc_selec_parameter_list[i][key_list[wcont2]])
+                                            st.number_input(utils.adjust_string(key_list[wcont2]), key = 'x_lag', min_value=1, value=model_struc_selec_parameter_list[i][key_list[wcont2]])
                                             st.multiselect('Select the desired lags', utils.get_lags_list(st.session_state['x_lag']), default=utils.get_lags_list(st.session_state['x_lag']), key = k)
                                         else:
                                             st.session_state[k] = list()
                                             for n_inputs in range(x_train.shape[1]):
-                                                st.number_input(utils.adjust_string(key_list[wcont2])+' '+str(n_inputs+1), key = 'x_lag_'+str(n_inputs+1), min_value=0, value=model_struc_selec_parameter_list[i][key_list[wcont2]])
+                                                st.number_input(utils.adjust_string(key_list[wcont2])+' '+str(n_inputs+1), key = 'x_lag_'+str(n_inputs+1), min_value=1, value=model_struc_selec_parameter_list[i][key_list[wcont2]])
                                                 st.multiselect('Select the desired lags', utils.get_lags_list(st.session_state['x_lag_'+str(n_inputs+1)]), default=utils.get_lags_list(st.session_state['x_lag_'+str(n_inputs+1)]), key='lags_'+str(n_inputs+1))
                                                 st.session_state[k].append(st.session_state['lags_'+str(n_inputs+1)])
                                     else:
-                                        st.number_input(utils.adjust_string(key_list[wcont2]), key = k, min_value=0, value=model_struc_selec_parameter_list[i][key_list[wcont2]])
+                                        if key_list[wcont2] == 'ylag':
+                                            st.number_input(utils.adjust_string(key_list[wcont2]), key = 'y_lag', min_value=1, value=model_struc_selec_parameter_list[i][key_list[wcont2]])
+                                            st.multiselect('Select the desired lags', utils.get_lags_list(st.session_state['y_lag']), default=utils.get_lags_list(st.session_state['y_lag']), key = k)
+                                        else:
+                                            st.number_input(utils.adjust_string(key_list[wcont2]), key = k, min_value=0, value=model_struc_selec_parameter_list[i][key_list[wcont2]])
 
                         if model_struc_selec_parameter_list[i][key_list[wcont2]] is None:
                             if key_list[wcont2] == 'basis_function': #a basis function é escolhida antes, então não precisamos do widget aqui
@@ -168,7 +170,7 @@ with tab2:
                                 st.write(key_list[wcont2])
                                 if st.checkbox(''):
                                     st.write('')
-                                st.write('Tipo None AQUI')
+                                st.write('None Type here')
 
                         if isinstance(model_struc_selec_parameter_list[i][key_list[wcont2]], float):
                             if model_struc_selec_parameter_list[i][key_list[wcont2]]<0.0:
@@ -225,7 +227,7 @@ with tab2:
 
         model_struc_selec_module = importlib.import_module('sysidentpy.model_structure_selection'+'.'+model_struc_dict[st.session_state['model_struc_select_key']][0])
         model = utils.str_to_class(model_struc_dict[st.session_state['model_struc_select_key']][1], model_struc_selec_module)(**model_struc_selec_par_dict)
-        st.write(model_struc_selec_par_dict)
+        # st.write(model_struc_selec_par_dict)
 
     if st.session_state['y_data'] != None and st.session_state['x_data'] != None:#não é o melhor jeito de fazer isso
         st.write('Predict Options')
@@ -255,7 +257,7 @@ with tab2:
                     st.number_input('Forecast Horizon', key = 'forecast_horizon', min_value=1)
             yhat = model.predict(X=x_valid, y=y_valid, steps_ahead=st.session_state['steps_ahead'], forecast_horizon=st.session_state['forecast_horizon'])    
     
-    st.session_state
+    # st.session_state
     
 
 with tab3:
@@ -304,5 +306,3 @@ with tab4:
         data=pk.dumps(model),
         file_name="my_model.syspy",
         )
-
-
