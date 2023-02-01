@@ -19,10 +19,6 @@ with open(path, encoding="utf-8") as code:
     c = code.read()
     exec(c, globals())
 
-with st.sidebar: #não funcionase estiver em um arquivo externo
-    ''' [![Repo](https://badgen.net/github/release/wilsonrljr/sysidentpy/?icon=github&labelColor=373736&label&color=f47c1c)](https://github.com/wilsonrljr/sysidentpy) ''' 
-    st.markdown("<br>",unsafe_allow_html=True)
-
 def add_regressors(regr_index_key, regr_list_key): #adiciona um grupo de regressores ao session_state específico
     regkeys = utils.sorter([regk for regk in list(st.session_state) if regr_index_key in regk]) #por segurança, deixa as keys de cada regressor do grupo em ordem alfanumérica
     nested_regressors = [st.session_state[regk] for regk in regkeys] #pega os valores correspondentes de cada key no dict session_state e coloca na lista do grupo de regressores

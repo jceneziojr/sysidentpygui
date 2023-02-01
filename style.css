@@ -1,0 +1,90 @@
+.css-1dp5vir{
+    visibility: hidden;
+}
+
+/* rgb(239, 119, 21) */
+
+/* barrinha das tabs */
+.st-co { 
+    background-color: rgb(239, 119, 21);
+}
+
+/* botões das tabs */
+.st-c5 {
+    color: rgb(239, 119, 21);
+}
+
+.st-cl:focus {
+    color: rgb(239, 119, 21);
+}
+
+.st-ce:hover {
+    color: rgb(239, 119, 21);
+}
+
+/* botões normais */
+.css-1uqmt5j:hover {
+    border-color: rgb(239, 119, 21);
+    color: rgb(239, 119, 21);
+}
+
+.css-1uqmt5j:focus:not(:active) {
+    border-color: rgb(239, 119, 21);
+    color: rgb(239, 119, 21);
+}
+
+.css-1uqmt5j:focus {
+    box-shadow: rgb(239 119 21 / 50%) 0px 0px 0px 0.2rem;
+    outline: none;
+}
+
+.css-1uqmt5j:active {
+    color: rgb(255, 255, 255);
+    border-color: rgb(239, 119, 21);
+    background-color: rgb(239, 119, 21);
+}
+
+/* botões number input */
+.css-15jfpy5:hover:enabled, .css-15jfpy5:focus:enabled {
+    color: rgb(255, 255, 255);
+    background-color: rgb(239, 119, 21);
+    transition: none 0s ease 0s;
+    outline: none;
+}
+
+/* botão de abrir aba lateral */
+.css-1rs6os:focus {
+    box-shadow: rgb(239 119 21 / 50%) 0px 0px 0px 0.2rem;
+    outline: none;
+}
+
+/* bordas dos seletores */
+.st-gq {
+    border-bottom-color: rgb(239, 119, 21);
+}
+
+.st-gp {
+    border-top-color: rgb(239, 119, 21);
+}
+
+.st-go {
+    border-right-color: rgb(239, 119, 21);
+}
+
+.st-gn {
+    border-left-color: rgb(239, 119, 21);
+}
+
+/* setinha expander */
+.css-1fcdlhc .streamlit-expanderHeader:hover svg {
+    fill: rgb(239, 119, 21);
+}
+/* x do file uploader */
+.css-9mblpd:hover, .css-9mblpd:active, .css-9mblpd:focus {
+    color: rgb(239, 119, 21);
+}
+
+.css-9mblpd:focus {
+    box-shadow: rgb(239 119 21 / 50%) 0px 0px 0px 0.2rem;
+    outline: none;
+}
