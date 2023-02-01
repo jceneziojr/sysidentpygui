@@ -25,6 +25,11 @@ path = os.path.join(root, "pagedesign.py")
 with open(path, encoding="utf-8") as code:
     c = code.read()
     exec(c, globals())
+
+with st.sidebar: #não funcionase estiver em um arquivo externo
+    ''' [![Repo](https://badgen.net/github/release/wilsonrljr/sysidentpy/?icon=github&labelColor=373736&label&color=f47c1c)](https://github.com/wilsonrljr/sysidentpy) ''' 
+    st.markdown("<br>",unsafe_allow_html=True)
+
 tabl = ['Load Data', 'Model Setup', 'Model Validation and Metrics', 'Save Model']
 
 tab1, tab2, tab3, tab4 = st.tabs(tabl)
@@ -300,6 +305,8 @@ with tab3:
             st.dataframe(pd.DataFrame(metrics_df))
 
 with tab4:
+    # ''' [![Repo](https://badgen.net/github/release/wilsonrljr/sysidentpy/?icon=github&labelColor=373736&label&color=f47c1c)](https://github.com/wilsonrljr/sysidentpy) ''' 
+    
     if st.session_state['y_data'] != None and st.session_state['x_data'] != None:
         st.download_button(
         "Download Model",
