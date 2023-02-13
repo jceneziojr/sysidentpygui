@@ -11,7 +11,7 @@ st.set_page_config( #Configurações gerais da página
 utils.addlogo()
 utils.removemenu()
 
-with st.sidebar:
+with st.expander("About"):
     st.write("SysIdentPy is an open-source Python module for System Identification using NARMAX models built on top of numpy and is distributed under the 3-Clause BSD license. SysIdentPy provides an easy-to-use and flexible framework for building Dynamical Nonlinear Models for time series and dynamic systems.")
     st.write("Check our [documentation](https://sysidentpy.org/) and our GitHub repository!")
     st.markdown(''' [![Repo](https://badgen.net/github/release/wilsonrljr/sysidentpy/?icon=github&labelColor=373736&label&color=f47c1c)](https://github.com/wilsonrljr/sysidentpy) ''',unsafe_allow_html=True)

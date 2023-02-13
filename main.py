@@ -228,7 +228,7 @@ with tab2:
 
         model_struc_selec_module = importlib.import_module('sysidentpy.model_structure_selection'+'.'+model_struc_dict[st.session_state['model_struc_select_key']][0])
         model = utils.str_to_class(model_struc_dict[st.session_state['model_struc_select_key']][1], model_struc_selec_module)(**model_struc_selec_par_dict)
-        # st.write(model_struc_selec_par_dict)
+        st.write(model_struc_selec_par_dict)
 
     if st.session_state['y_data'] != None and st.session_state['x_data'] != None:#não é o melhor jeito de fazer isso
         st.write('Predict Options')

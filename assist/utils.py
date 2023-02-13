@@ -65,7 +65,7 @@ def plot_results(
     y=None,
     *,
     yhat=None,
-    figsize=(10, 6),
+    figsize=(8, 5),
     n=100,
     style="seaborn-white",
     facecolor="white",
@@ -83,14 +83,14 @@ def plot_results(
     ax.set_xlabel("Samples", fontsize=14)
     ax.set_ylabel("y, $\hat{y}$", fontsize=14)
 
-    fig.savefig('temp_figs//results_fig.png')
+    fig.savefig('temp_figs//results_fig.png', bbox_inches='tight')
     image = Image.open('temp_figs//results_fig.png')
     return image
 
 def plot_residues_correlation(
     data=None,
     *,
-    figsize=(10, 6),
+    figsize=(8, 5),
     n=100,
     style="seaborn-white",
     facecolor="white",
@@ -110,10 +110,10 @@ def plot_residues_correlation(
     ax.set_title(title, fontsize=18)
 
     if second_fig == True:
-        fig.savefig('temp_figs//residues_fig_2.png')
+        fig.savefig('temp_figs//residues_fig_2.png', bbox_inches='tight')
         image = Image.open('temp_figs//residues_fig_2.png')
     else:
-        fig.savefig('temp_figs//residues_fig_1.png')
+        fig.savefig('temp_figs//residues_fig_1.png', bbox_inches='tight')
         image = Image.open('temp_figs//residues_fig_1.png')
     return image
 
