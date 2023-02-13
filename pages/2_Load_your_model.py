@@ -65,8 +65,18 @@ if st.session_state['model_file'] != None and st.session_state['vx_data'] != Non
         metrics_df["Metric Name"] = metrics_namelist
         metrics_df["Value"] = metrics_vallist
         st.dataframe(pd.DataFrame(metrics_df))
-        
+
     with st.expander('Results Plot'):
         st.image(utils.plot_results(y=y_valid, yhat=yhat_loaded, n=1000))
+    
+    ee = compute_residues_autocorrelation(y_valid, yhat_loaded)
+    if x_valid.shape[1]==1:
+        x1e = compute_cross_correlation(y_valid, yhat_loaded, x_valid)
+    else:
+        x1e = compute_cross_correlation(y_valid, yhat_loaded, x_valid[:, 0])
+
+    with st.expander('Residues Plot'):
+        st.image(utils.plot_residues_correlation(data=ee, title="Residues", ylabel="$e^2$"))
+        st.image(utils.plot_residues_correlation(data=x1e, title="Residues", ylabel="$x_1e$", second_fig=True))
 
     
