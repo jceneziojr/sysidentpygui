@@ -4,6 +4,8 @@ from sysidentpy.utils.display_results import results
 from sysidentpy.simulation import SimulateNARMAX
 from sysidentpy.basis_function._basis_function import Polynomial
 from sysidentpy.residues.residues_correlation import compute_residues_autocorrelation, compute_cross_correlation
+from sysidentpy.metrics import __ALL__ as metrics_list
+import sysidentpy.metrics as metrics
 import os
 import sys
 sys.path.insert(1, os.path.dirname(__file__).replace('\pages',''))
@@ -125,6 +127,20 @@ if st.session_state['tx_data'] != None and st.session_state['ty_data'] !=None:
             theta = theta_l,
             steps_ahead = st.session_state['steps_ahead']
         )
+
+        metrics_df = dict()
+        metrics_namelist = list() 
+        metrics_vallist = list() #criando listas separadas deixa mais bonito
+        with st.expander('Metrics'):
+            for index in range(len(metrics_list)):
+                if metrics_list[index] == 'r2_score' or metrics_list[index] == 'forecast_error':
+                    pass
+                else:
+                    metrics_namelist.append(utils.get_acronym(utils.adjust_string(metrics_list[index])))
+                    metrics_vallist.append(getattr(metrics, metrics_list[index])(y_test, yhat_sim))
+            metrics_df["Metric Name"] = metrics_namelist
+            metrics_df["Value"] = metrics_vallist
+            st.dataframe(pd.DataFrame(metrics_df))
 
         with st.expander('Results Plot'):
             st.image(utils.plot_results(y=y_test, yhat=yhat_sim, n=1000))
