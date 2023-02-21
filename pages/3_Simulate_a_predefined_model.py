@@ -127,6 +127,8 @@ if st.session_state['tx_data'] != None and st.session_state['ty_data'] !=None:
             theta = theta_l,
             steps_ahead = st.session_state['steps_ahead']
         )
+        st.write('Model equation:')
+        st.latex(utils.get_model_eq(sim))
 
         metrics_df = dict()
         metrics_namelist = list() 

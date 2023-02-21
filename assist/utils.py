@@ -3,6 +3,8 @@ import sys
 import re
 import matplotlib.pyplot as plt
 from PIL import Image
+from sysidentpy.utils.display_results import results
+import pandas as pd
 
 def addlogo():
     st.markdown("""<img src="https://i.imgur.com/zOcSUib.png" alt="logo" class="center"> """, unsafe_allow_html=True) #adiciona a logo
@@ -134,3 +136,20 @@ def get_lags_list(n):
     for i in range(1,n+1):
         lags.append(i)
     return lags
+
+def get_model_eq(model):
+    r = pd.DataFrame(
+        results(
+            model.final_model, model.theta, model.err,
+            model.n_terms, err_precision=8, dtype='sci'
+        ),
+        columns=['Regressors', 'Parameters', 'ERR'])
+
+    model_string = 'y_k = '
+    for ind in r.index:
+        model_string += f'  {float(r.iat[ind, 1]):.2f}*{r.iat[ind, 0]}'
+        if len(r.index) != ind+1:
+            model_string += '+'
+    model_string = model_string.replace('(', '_{')
+    model_string = model_string.replace(')', '}')
+    return model_string
