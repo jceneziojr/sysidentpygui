@@ -10,14 +10,11 @@ import importlib
 from sysidentpy.basis_function import *
 from sysidentpy.model_structure_selection import *
 from sysidentpy.metrics import __ALL__ as metrics_list
-import numpy as np
 import sysidentpy.metrics as metrics
 from sysidentpy.utils.display_results import results
-import matplotlib.pyplot as plt
 from sysidentpy.residues.residues_correlation import compute_residues_autocorrelation, compute_cross_correlation
 import pickle as pk
 from math import floor
-import csv
 
 root = os.path.join(os.path.dirname(__file__)+'\\assist')
 path = os.path.join(root, "pagedesign.py")

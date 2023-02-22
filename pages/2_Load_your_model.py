@@ -1,8 +1,5 @@
 import streamlit as st
-from sysidentpy.utils.save_load import load_model
 from sysidentpy.utils.display_results import results
-from sysidentpy.simulation import SimulateNARMAX
-from sysidentpy.basis_function._basis_function import Polynomial
 from sysidentpy.residues.residues_correlation import compute_residues_autocorrelation, compute_cross_correlation
 from sysidentpy.metrics import __ALL__ as metrics_list
 import sysidentpy.metrics as metrics
@@ -12,7 +9,6 @@ sys.path.insert(1, os.path.dirname(__file__).replace('\pages',''))
 import assist.utils as utils
 import pandas as pd
 import pickle as pk
-import numpy as np
 
 root = os.path.join(os.path.dirname(__file__).replace('\pages','')+'\\assist')
 path = os.path.join(root, "pagedesign.py")
