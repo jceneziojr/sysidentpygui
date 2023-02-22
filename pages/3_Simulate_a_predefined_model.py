@@ -142,7 +142,7 @@ if st.session_state['tx_data'] != None and st.session_state['ty_data'] !=None:
                     metrics_vallist.append(getattr(metrics, metrics_list[index])(y_test, yhat_sim))
             metrics_df["Metric Name"] = metrics_namelist
             metrics_df["Value"] = metrics_vallist
-            st.dataframe(pd.DataFrame(metrics_df))
+            st.dataframe(pd.DataFrame(metrics_df).style.format({'Value':'{:f}'}))
 
         with st.expander('Results Plot'):
             st.image(utils.plot_results(y=y_test, yhat=yhat_sim, n=1000))

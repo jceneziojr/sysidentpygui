@@ -298,7 +298,7 @@ with tab3:
                     metrics_vallist.append(getattr(metrics, metrics_list[index])(y_valid, yhat))
             metrics_df["Metric Name"] = metrics_namelist
             metrics_df["Value"] = metrics_vallist
-            st.dataframe(pd.DataFrame(metrics_df))
+            st.dataframe(pd.DataFrame(metrics_df).style.format({'Value':'{:f}'}))
 
 with tab4:
     # ''' [![Repo](https://badgen.net/github/release/wilsonrljr/sysidentpy/?icon=github&labelColor=373736&label&color=f47c1c)](https://github.com/wilsonrljr/sysidentpy) ''' 
