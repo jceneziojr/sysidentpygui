@@ -15,8 +15,12 @@ from sysidentpy.utils.display_results import results
 from sysidentpy.residues.residues_correlation import compute_residues_autocorrelation, compute_cross_correlation
 import pickle as pk
 from math import floor
+import platform
 
-root = os.path.join(os.path.dirname(__file__)+'\\assist')
+if platform.system() == "Linux":
+    root = os.path.join(os.path.dirname(__file__)+'/assist')
+else:
+    root = os.path.join(os.path.dirname(__file__)+'\\assist')
 path = os.path.join(root, "pagedesign.py")
 
 with open(path, encoding="utf-8") as code:
