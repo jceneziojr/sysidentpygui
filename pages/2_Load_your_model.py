@@ -9,8 +9,12 @@ sys.path.insert(1, os.path.dirname(__file__).replace('\pages',''))
 import assist.utils as utils
 import pandas as pd
 import pickle as pk
+import platform
 
-root = os.path.join(os.path.dirname(__file__).replace('\pages','')+'\\assist')
+if platform.system() == "Linux":
+    root = os.path.join(os.path.dirname(__file__)+'/assist')
+else:
+    root = os.path.join(os.path.dirname(__file__)+'\\assist')
 path = os.path.join(root, "pagedesign.py")
 
 with open(path, encoding="utf-8") as code:
