@@ -12,9 +12,9 @@ import pickle as pk
 import platform
 
 if platform.system() == "Linux":
-    root = os.path.join(os.path.dirname(__file__)+'/assist')
+    root = os.path.join(os.path.dirname(__file__).replace('/pages','')+'/assist')
 else:
-    root = os.path.join(os.path.dirname(__file__)+'\\assist')
+    root = os.path.join(os.path.dirname(__file__).replace('\pages','')+'\\assist')
 path = os.path.join(root, "pagedesign.py")
 
 with open(path, encoding="utf-8") as code:
