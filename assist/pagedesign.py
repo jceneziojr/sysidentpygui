@@ -16,5 +16,5 @@ with st.expander("About"):
     st.write("Check our [documentation](https://sysidentpy.org/) and our GitHub repository!")
     st.markdown(''' [![Repo](https://badgen.net/github/release/wilsonrljr/sysidentpy/?icon=github&labelColor=373736&label&color=f47c1c)](https://github.com/wilsonrljr/sysidentpy) ''',unsafe_allow_html=True)
 
-with open("style.css") as sty:
-    st.markdown(f"<style>{sty.read()}</style>", unsafe_allow_html=True)
+
+# st.markdown("<style>.css-1dp5vir{visibility: hidden;}</style>", unsafe_allow_html=True)
