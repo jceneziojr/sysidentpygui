@@ -5,6 +5,7 @@ import matplotlib.pyplot as plt
 from PIL import Image
 from sysidentpy.utils.display_results import results
 import pandas as pd
+import inspect
 
 def addlogo():
     st.markdown("""<img src="https://i.imgur.com/zOcSUib.png" alt="logo" class="center"> """, unsafe_allow_html=True) #adiciona a logo
@@ -23,6 +24,19 @@ def removemenu(op = True):
         #MainMenu {visibility: hidden;}
         footer {visibility: hidden;}
         </style>""", unsafe_allow_html=True)
+
+def get_estimators(cls):   
+    return [i for i in cls.__dict__.keys() if i[:1] != '_']
+
+def get_default_args(func):
+    """
+    Returns a dictionary containing the default arguments of the given function.
+    """
+    sig = inspect.signature(func)
+    return {
+        arg.name: arg.default
+        for arg in sig.parameters.values()
+    }
 
 def dict_key_to_list(g_dict):
     return list(g_dict.keys())

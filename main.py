@@ -64,7 +64,7 @@ with tab2:
     if st.session_state['x_data'] != None:
         col2, esp3, esp4 = st.columns([2, 1, 1.65])
         with col2:
-            st.selectbox('Basis Function', basis_function_list, key='basis_function_key') #escolhendo a basis function
+            st.selectbox('Basis Function', basis_function_list, key='basis_function_key', index=1) #escolhendo a basis function
             
             for i in range(len(basis_function_list)): #pra saber quantos widgets devem ser criados, é preciso que a gente saiba qual basis function foi escolhida,  
                                                 #então a variável i serve pra checarmos isso

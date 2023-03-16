@@ -1,17 +1,11 @@
 import numpy as np
+from sysidentpy.parameter_estimation import Estimators
+import sysidentpy.basis_function as basis_function
+import inspect
+import assist.utils as utils
 
-basis_function_list = ['Polynomial', 'Fourier']
-basis_function_parameter_list = [
-    {   #polynomial
-        'degree' : 2
-    },
-    {   #fourier
-        'n' : 1,
-        'p' : 2*np.pi,
-        'degree' :  1,
-        'ensemble' : True
-    }
-]
+basis_function_list = [cls_name for cls_name,_ in inspect.getmembers(basis_function, lambda member: inspect.isclass(member))]
+basis_function_parameter_list = [utils.get_default_args(getattr(basis_function, cls_name)) for cls_name in basis_function_list]
 
 model_struc_dict = { #Nome que aparece, nome do arquivo, nome da classe
     'Forward regression orthogonal least squares (compact)' :  ['forward_regression_orthogonal_least_squares','FROLS'],
@@ -144,11 +138,7 @@ model_struc_selec_parameter_list = [
 
 ic_list = ["aic", "bic", "fpe", "lilc"]
 
-estimators_list = ['least_squares', 'total_least_squares', 'recursive_least_squares', 'affine_least_mean_squares', 'least_mean_squares',
-                    'least_mean_squares_sign_error', 'normalized_least_mean_squares', 'least_mean_squares_normalized_sign_error',
-                    'least_mean_squares_sign_regressor', 'least_mean_squares_normalized_sign_regressor', 'least_mean_squares_sign_sign',
-                    'least_mean_squares_normalized_sign_sign', 'least_mean_squares_normalized_leaky', 'least_mean_squares_leaky',
-                    'least_mean_squares_fourth', 'least_mean_squares_mixed_norm']
+estimators_list = utils.get_estimators(Estimators)
 
 model_type_list = ['NARMAX', 'NAR', 'NFIR']
 
