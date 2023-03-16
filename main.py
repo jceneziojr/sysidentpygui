@@ -201,6 +201,9 @@ with tab2:
                                 st.number_input(' ', key = 'steps_aheadmss', min_value=1)
                             else:
                                 st.session_state['steps_aheadmss'] = model_struc_selec_parameter_list[i]['steps_ahead']
+
+                        if key_list[wcont2] == 'random_state':
+                            st.write('aqui')
                         wcont2 = wcont2+1
 
                     model_struc_selec_par_dict = dict(model_struc_selec_parameter_list[i]) 
