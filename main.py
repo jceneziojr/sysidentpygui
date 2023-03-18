@@ -52,6 +52,7 @@ with tab1:
         st.write('Load above your CSV input and output data, formatted in a column (in case of multiple inputs, use a tab as a separator). Then, set the percentage of the data that will be used as validation data.')
         st.write('For better performance, load your output data after setting up your model. The input data is required so the app can identify the number of inputs (therefore, the user cannot setup the model without loading the input data).')
         st.write('You can download the model once both the input and output data have been loaded.')
+        st.write('We are aware of a bug that happens when you change the Model Structure Selection Algorithm. If you press the \'R\' key it will solve it. The cause of the bug is known, but a fix is not really doable within our code format.')
 
     if st.session_state['x_data'] != None: #não é o melhor jeito de fazer isso
         perc_index = floor(data_x.shape[0] - data_x.shape[0]*(st.session_state['val_perc']/100))
@@ -115,9 +116,9 @@ with tab2:
         bf_module = importlib.import_module('sysidentpy.basis_function._basis_function') #pegando o arquivo onde tá a classe da basis function
         bf = utils.str_to_class(st.session_state['basis_function_key'], bf_module)(**bf_par_dict) #instanciando a basis function
     
-        col3, esp5, esp6 = st.columns([3, 1, 1.6])
+        col3, esp5, esp6 = st.columns([3, 1, 1])
         with col3:
-            st.selectbox('Model Structure Selection Algorithm', list(model_struc_dict), key='model_struc_select_key')
+            st.selectbox('Model Structure Selection Algorithm', list(model_struc_dict), key='model_struc_select_key', index=3)
 
         col4, esp7, esp8 = st.columns([3, 1, 2.2])
         with col4:  
@@ -168,6 +169,13 @@ with tab2:
                                     st.session_state[k] = st.session_state['steps_aheadmss']
                                 st.write(utils.adjust_string(key_list[wcont2]))
                                 st.checkbox(' ', key='sa_c')
+                            elif key_list[wcont2] == 'random_state':
+                                if k not in st.session_state:
+                                    st.session_state[k] = model_struc_selec_parameter_list[i][key_list[wcont2]]
+                                if 'random_statemss' in st.session_state:
+                                    st.session_state[k] = st.session_state['random_statemss']
+                                st.write(utils.adjust_string(key_list[wcont2]))
+                                st.checkbox(' ', key='rs_c')
                             else:
                                 st.write(key_list[wcont2])
                                 if st.checkbox(''):
@@ -178,7 +186,10 @@ with tab2:
                             if model_struc_selec_parameter_list[i][key_list[wcont2]]<0.0:
                                 st.number_input(utils.adjust_string(key_list[wcont2]), key = k, min_value=-50.0, value=model_struc_selec_parameter_list[i][key_list[wcont2]], format="%5.3e", step=model_struc_selec_parameter_list[i][key_list[wcont2]]/10)
                             else:
-                                st.number_input(utils.adjust_string(key_list[wcont2]), key = k, min_value=0.0, value=model_struc_selec_parameter_list[i][key_list[wcont2]], format="%5.3e", step=model_struc_selec_parameter_list[i][key_list[wcont2]]/10)                                                                               
+                                if key_list[wcont2] == 'p':
+                                    st.number_input(utils.adjust_string(key_list[wcont2]), key = k, min_value=0.0, value=1.797e307, format="%5.3e", step=1.797e307/10)                                                                               
+                                else:
+                                    st.number_input(utils.adjust_string(key_list[wcont2]), key = k, min_value=0.0, value=model_struc_selec_parameter_list[i][key_list[wcont2]], format="%5.3e", step=0.5)                                                                               
                         
                         if isinstance(model_struc_selec_parameter_list[i][key_list[wcont2]], str): #os valores padrão não vem do dicionário externo, porque o valor padrão é o primeiro elemento da lista que passamos como opções
                             if key_list[wcont2] == 'info_criteria': 
@@ -189,6 +200,8 @@ with tab2:
                                 st.selectbox(utils.adjust_string(key_list[wcont2]), model_type_list, key = k)
                             if key_list[wcont2] == 'loss_func':
                                 st.selectbox(utils.adjust_string(key_list[wcont2]), los_func_list, key = k)
+                            if key_list[wcont2] == 'mutual_information_estimator':
+                                st.selectbox(utils.adjust_string(key_list[wcont2]), ['mutual_information_knn'], key = k)
 
                         if key_list[wcont2] == 'order_selection': #se esse parametro for falso, um n_terms tem que ser escolhido
                             if st.session_state[k] == False:
@@ -201,9 +214,12 @@ with tab2:
                                 st.number_input(' ', key = 'steps_aheadmss', min_value=1)
                             else:
                                 st.session_state['steps_aheadmss'] = model_struc_selec_parameter_list[i]['steps_ahead']
-
                         if key_list[wcont2] == 'random_state':
-                            st.write('aqui')
+                            if st.session_state['rs_c'] == True:
+                                st.number_input(' ', key = 'random_statemss', min_value=1)
+                            else:
+                                st.session_state['random_statemss'] = model_struc_selec_parameter_list[i]['random_state'] 
+
                         wcont2 = wcont2+1
 
                     model_struc_selec_par_dict = dict(model_struc_selec_parameter_list[i]) 
@@ -227,12 +243,14 @@ with tab2:
                         model_struc_selec_par_dict['n_terms'] = st.session_state['n_terms']
                     if 'steps_ahead' in model_struc_selec_parameter_list[i]:
                         model_struc_selec_par_dict['steps_ahead'] = st.session_state['steps_aheadmss']
+                    if 'random_state' in model_struc_selec_parameter_list[i]:
+                        model_struc_selec_par_dict['random_state'] = st.session_state['random_statemss']
 
         st.markdown("""---""")
-
+        st.write(model_struc_selec_par_dict)
         model_struc_selec_module = importlib.import_module('sysidentpy.model_structure_selection'+'.'+model_struc_dict[st.session_state['model_struc_select_key']][0])
         model = utils.str_to_class(model_struc_dict[st.session_state['model_struc_select_key']][1], model_struc_selec_module)(**model_struc_selec_par_dict)
-        st.write(model_struc_selec_par_dict)
+
 
     if st.session_state['y_data'] != None and st.session_state['x_data'] != None:#não é o melhor jeito de fazer isso
         st.write('Predict Options')

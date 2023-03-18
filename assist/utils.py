@@ -38,6 +38,54 @@ def get_default_args(func):
         for arg in sig.parameters.values()
     }
 
+def get_model_struc_dict(module, prefix): #creates a dictionary that the app uses for the method name and objects instantiating
+    _model_struc_dict = dict()
+    _cls_names = [cls_name for cls_name,_ in inspect.getmembers(module, lambda member: inspect.isclass(member))]
+    _cls_modules_paths = [getattr(module, classname).__module__ for classname in _cls_names]
+    _module_names = [modpath.replace(prefix,'') for modpath in _cls_modules_paths]
+
+    for i in range(len(_cls_names)):
+        if _cls_names[i] == 'FROLS':
+            _model_struc_dict[adjust_string(_module_names[i])+' ('+_cls_names[i]+' Compact)'] = [_module_names[i],_cls_names[i]]
+            _model_struc_dict[adjust_string(_module_names[i])+' ('+_cls_names[i]+' Complete)'] = [_module_names[i],_cls_names[i]]
+        elif _cls_names[i] == 'MetaMSS':
+            _model_struc_dict[adjust_string(_module_names[i])+' ('+_cls_names[i]+' Compact)'] = [_module_names[i],_cls_names[i]]
+            _model_struc_dict[adjust_string(_module_names[i])+' ('+_cls_names[i]+' Complete)'] = [_module_names[i],_cls_names[i]]
+        elif _cls_names[i] == 'ER':
+            _model_struc_dict[adjust_string(_module_names[i])+' ('+_cls_names[i]+' Compact)'] = [_module_names[i],_cls_names[i]]
+            _model_struc_dict[adjust_string(_module_names[i])+' ('+_cls_names[i]+' Complete)'] = [_module_names[i],_cls_names[i]]
+        else:
+            _model_struc_dict[adjust_string(_module_names[i])+' ('+_cls_names[i]+')'] = [_module_names[i],_cls_names[i]]
+    
+    return _model_struc_dict
+
+def get_model_struc_selec_parameter_list(module):
+    _cls_names = [cls_name for cls_name,_ in inspect.getmembers(module, lambda member: inspect.isclass(member))]
+    _model_struc_selec_parameter_list = list()
+    for _cls in _cls_names:
+        if _cls == 'FROLS':
+            _full_args = get_default_args(getattr(module, _cls))
+            _compact_form_keys =['order_selection', 'n_terms', 'n_info_values', 'extended_least_squares', 'ylag', 'xlag', 'info_criteria','estimator', 'model_type', 'basis_function']
+            _compact_args = dict( ((key, _full_args[key]) for key in _compact_form_keys) )
+            _model_struc_selec_parameter_list.append(_compact_args)
+            _model_struc_selec_parameter_list.append(_full_args)
+        elif _cls == 'MetaMSS':
+            _full_args = get_default_args(getattr(module, _cls))
+            _compact_form_keys =['maxiter', 'k_agents_percent', 'norm', 'n_agents', 'xlag', 'ylag', 'estimator', 'estimate_parameter', 'loss_func', 'model_type', 'basis_function']
+            _compact_args = dict( ((key, _full_args[key]) for key in _compact_form_keys) )
+            _model_struc_selec_parameter_list.append(_compact_args)
+            _model_struc_selec_parameter_list.append(_full_args)
+        elif _cls == 'ER':
+            _full_args = get_default_args(getattr(module, _cls))
+            _compact_form_keys =['ylag', 'xlag', 'estimator', 'k', 'n_perm', 'skip_forward', 'model_type', 'basis_function']
+            _compact_args = dict( ((key, _full_args[key]) for key in _compact_form_keys) )
+            _model_struc_selec_parameter_list.append(_compact_args)
+            _model_struc_selec_parameter_list.append(_full_args)
+        else:   
+            _model_struc_selec_parameter_list.append(get_default_args(getattr(module, _cls)))
+
+    return _model_struc_selec_parameter_list
+
 def dict_key_to_list(g_dict):
     return list(g_dict.keys())
 
