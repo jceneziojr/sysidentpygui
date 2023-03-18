@@ -8,7 +8,7 @@ import pandas as pd
 import inspect
 
 def addlogo():
-    st.markdown("""<img src="https://i.imgur.com/zOcSUib.png" alt="logo" class="center"> """, unsafe_allow_html=True) #adiciona a logo
+    st.markdown("""<img src="https://i.imgur.com/roD5DkG.png" alt="logo" class="center"> """, unsafe_allow_html=True) #adiciona a logo
     st.markdown(""" <style> 
     .center {
     display: block;
