@@ -39,3 +39,14 @@ SysIdentPyGUI requires the following modules for a local host:
 - Download your model
 - Load and validate your model
 - Simulate a predefined model
+
+### Basic usage examples
+
+#### Model ID
+#### Model download
+#### Load Model
+#### Simulate model
+
+## Why does SysIdentPyGUI exist?
+
+SysIdentPyGUI is an use alternative for people that would like to use SysIdentPy toolbox but aren't familiar with Python, such as medical or economy students.
