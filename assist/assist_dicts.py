@@ -1,6 +1,7 @@
 import numpy as np
 from sysidentpy.parameter_estimation import Estimators
 import sysidentpy.basis_function as basis_function
+import sysidentpy.model_structure_selection as model_structure_selection
 import inspect
 import assist.utils as utils
 
