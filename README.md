@@ -41,8 +41,33 @@ SysIdentPyGUI requires the following modules for a local host:
 - Simulate a predefined model
 
 ### Basic usage examples
-
+To replicate the following examples, you can download the data available [**here**](https://github.com/jceneziojr/sysidentpygui_testdata).
 #### Model ID
+First upload your data and set the percentage of data that will be used as validation data.
+
+IMAGEM 1
+
+Then, go to the 'Model Setup' tab and make your desired changes to the model configuration. At the bottom of the page, you can make changes to the way that SysIdentPy will run the predict if wanted.
+
+IMAGEM 2
+
+For MISO data, you can define the lags for each specific input separately.
+
+IMAGEM 3
+
+You can then proceed to the 'Model Validation and Metrics' tab, to check the model regressors, results and residues plots, as well as the metrics.
+
+IMAGEM 4
+
+IMAGEM 5
+
+IMAGEM 6
+
+Go to the 'Save Model' tab to save your final model.
+
+IMAGEM 7
+
+
 #### Model download
 #### Load Model
 #### Simulate model
