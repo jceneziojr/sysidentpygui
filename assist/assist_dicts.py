@@ -19,5 +19,3 @@ ic_list = ["aic", "bic", "fpe", "lilc"]
 model_type_list = ['NARMAX', 'NAR', 'NFIR']
 
 los_func_list = ['metamss_loss', 'aic', 'bic']
-
-print(model_struc_selec_parameter_list)
