@@ -49,7 +49,7 @@ with tab1:
         st.number_input('Validating Percentage', 0.0, 100.0, value=15.0, key='val_perc')
     st.markdown("""---""")
     with st.expander('Instructions'):
-        st.write('Load above your CSV input and output data, formatted in a column (in case of multiple inputs, use a tab as a separator). Then, set the percentage of the data that will be used as validation data.')
+        st.write('Load above your .csv/.txt input and output data, formatted in a column (in case of multiple inputs, use a tab as a separator). Then, set the percentage of the data that will be used as validation data.')
         st.write('For better performance, load your output data after setting up your model. The input data is required so the app can identify the number of inputs (therefore, the user cannot setup the model without loading the input data).')
         st.write('You can download the model once both the input and output data have been loaded.')
         st.write('We are aware of a bug that happens when you change the Model Structure Selection Algorithm. If you press the \'R\' key it will solve it. The cause of the bug is known, but a fix is not really doable within our code format.')
