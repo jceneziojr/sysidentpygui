@@ -45,32 +45,55 @@ To replicate the following examples, you can download the data available [**here
 #### Model ID
 First upload your data and set the percentage of data that will be used as validation data.
 
-IMAGEM 1
+<img src="/images/1.PNG" width="60%" height="60%" />
 
 Then, go to the 'Model Setup' tab and make your desired changes to the model configuration. At the bottom of the page, you can make changes to the way that SysIdentPy will run the predict if wanted.
 
-IMAGEM 2
-
+<img src="/images/2.PNG" width="60%" height="60%" />
 For MISO data, you can define the lags for each specific input separately.
 
-IMAGEM 3
-
+<img src="/images/3.PNG" width="60%" height="60%" />
 You can then proceed to the 'Model Validation and Metrics' tab, to check the model regressors, results and residues plots, as well as the metrics.
 
-IMAGEM 4
-
-IMAGEM 5
-
-IMAGEM 6
-
-Go to the 'Save Model' tab to save your final model.
-
-IMAGEM 7
-
+<img src="/images/4.PNG" width="60%" height="60%" />
+<img src="/images/5.PNG" width="60%" height="60%" />
+<img src="/images/6.PNG" width="60%" height="60%" />
 
 #### Model download
+Go to the 'Save Model' tab to save your final model.
+
+<img src="/images/7.PNG" width="60%" height="60%" />
+
 #### Load Model
+Go to the 'Load Model' page and load your data files and the model file you saved before.
+
+<img src="/images/8.PNG" width="60%" height="60%" />
+
+After loaded, you can visualize the regressors and metrics table, as well as the results and residues plots. Notice, that you can use a new dataset to check the model acuracy.
+
+<img src="/images/9.PNG" width="60%" height="60%" />
+
 #### Simulate model
+
+Go to the 'Simulate a predefined model' page, and load your test data.
+
+<img src="/images/10.PNG" width="60%" height="60%" />
+
+Then set the nonlinearity degree of the model and prepare the regressors list (as exemplified in the [tutorial](https://sysidentpy.org/examples/simulating_a_predefined_model/)), adding each group by itself. If needed, delete the list and start over.
+
+<img src="/images/11.PNG" width="60%" height="60%" />
+
+Set the model parameters.
+
+<img src="/images/12.PNG" width="60%" height="60%" />
+
+Set the simulation options if wanted, and then hit the 'Simulate the model' button.
+
+<img src="/images/13.PNG" width="60%" height="60%" />
+
+Go further down to see the model equation, model metrics, results and residues plots.
+
+<img src="/images/14.PNG" width="60%" height="60%" />
 
 ## Why does SysIdentPyGUI exist?
 
