@@ -3,6 +3,7 @@
 </p>
 
 [![Streamlit App](https://static.streamlit.io/badges/streamlit_badge_black_white.svg)](https://sysidentpygui.streamlit.app/)
+[![Repo](https://badgen.net/github/release/wilsonrljr/sysidentpy/?icon=github&labelColor=373736&label&color=f47c1c)](https://github.com/wilsonrljr/sysidentpy)
 
 ## What is SysIdentPyGUI?
 
