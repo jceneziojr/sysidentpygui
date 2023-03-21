@@ -19,7 +19,7 @@ col1, esp1, col2 = st.columns([5,1,2])
 with col1:
     st.header('Project History')
     st.markdown('The project idea was given first by Samir A. M. Martins and Wilson R. L. Junior, as an use alternative for people that would like to use **SysIdentPy** toolbox but aren\'t familiar with Python, such as medical or economy students.')
-    st.markdown('The concept was then handed to Samir\'s student Júlio C. E. Júnior, who started the development of the web appin the first half of 2022.')
+    st.markdown('The concept was then handed to Samir\'s student Júlio C. E. Júnior, who started the development of the web app in the first half of 2022.')
     st.markdown('**SysIdentPyGUI** was developed using [Streamlit](https://streamlit.io/) due to its practical syntax, constant updates and active community.')
     st.header('Active Maintainers')
     st.markdown('The project is maintained by Júlio César Enezio Júnior, under supervision of Wilson Rocha Lacerda Junior and Samir Angelo Milani Martins.')
