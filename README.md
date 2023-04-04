@@ -61,6 +61,9 @@ Use `pip` to install the dependecies throught the `requirements.txt` file. If yo
 ### Basic usage examples
 To replicate the following examples, you can download the data available [**here**](https://github.com/jceneziojr/sysidentpygui_testdata).
 #### Model ID
+
+<img src="/images/1.gif" width="60%" height="60%" />
+
 First upload your data and set the percentage of data that will be used as validation data.
 
 <img src="/images/1.PNG" width="60%" height="60%" />
