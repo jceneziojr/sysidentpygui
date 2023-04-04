@@ -11,6 +11,8 @@
 
 Get more information on our [**About**](https://sysidentpygui.streamlit.app/About) page and in [**SysIdentPy's Documentation**](https://sysidentpy.org/) and its [**GitHub repository**](https://github.com/wilsonrljr/sysidentpy/).
 
+<img src="/images/1.gif" width="60%" height="60%" />
+
 ## How can I use SysIdentPyGUI?
 
 **SysIdentPyGUI** is currently hosted on [***Streamlit Cloud***](https://sysidentpygui.streamlit.app/). You can run it locally on your machine via a containerized version through [***Docker***](https://www.docker.com/) by using the Dockerfile that is available, through the following commands:
@@ -61,8 +63,6 @@ Use `pip` to install the dependecies throught the `requirements.txt` file. If yo
 ### Basic usage examples
 To replicate the following examples, you can download the data available [**here**](https://github.com/jceneziojr/sysidentpygui_testdata).
 #### Model ID
-
-<img src="/images/1.gif" width="60%" height="60%" />
 
 First upload your data and set the percentage of data that will be used as validation data.
 
