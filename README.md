@@ -13,7 +13,24 @@ Get more information on our [**About**](https://sysidentpygui.streamlit.app/Abou
 
 ## How can I use SysIdentPyGUI?
 
-**SysIdentPyGUI** is currently hosted on [***Streamlit Cloud***](https://sysidentpygui.streamlit.app/). ~You can run it locally on your machine via a containerized version through the Dockerfile that is available~ or by building the Streamlit application using:
+**SysIdentPyGUI** is currently hosted on [***Streamlit Cloud***](https://sysidentpygui.streamlit.app/). You can run it locally on your machine via a containerized version through [***Docker***](https://www.docker.com/) by using the Dockerfile that is available, through the following commands:
+
+``` console
+docker build -t sysidenpygui .
+```
+The above command will build the Docker Image. Check the image by typing:
+
+``` console
+docker images
+```
+
+The `sysidentpygui` image should appear in the images list. Run the container with:
+
+``` console
+docker run -p 8501:8501 sysidentpygui
+```
+
+Alternatively, you can run the Streamlit application locally using:
 
 ``` console
 streamlit run 1_SysIdentPyGUI.py
@@ -31,7 +48,7 @@ SysIdentPyGUI requires the following modules for a local host:
 - Pandas (>= 1.5.1)
 - Pillow (>= 9.4.0)
 
-~If you choose to run the containerized version, the Dockerfile will install de dependencies for you.~
+Use `pip` to install the dependecies throught the `requirements.txt` file. If you choose to run the containerized version, the Dockerfile will install de dependencies for you.
 
 
 ## Which features from SysIdentPy are available on SysIdentPyGUI?
