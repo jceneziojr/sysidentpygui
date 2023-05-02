@@ -279,9 +279,6 @@ with tab2:
                 if model.model_type == 'NAR':
                     st.number_input('Forecast Horizon', key = 'forecast_horizon', min_value=1)
             yhat = model.predict(X=x_valid, y=y_valid, steps_ahead=st.session_state['steps_ahead'], forecast_horizon=st.session_state['forecast_horizon'])    
-    
-    # st.session_state
-    
 
 with tab3:
     if st.session_state['y_data'] != None and st.session_state['x_data'] != None: #não é o melhor jeito de fazer isso
