@@ -51,11 +51,13 @@ Through `SysIdentPyGUI` you can quickly identify the mathematical model that app
 In the 'Model Setup' tab, the user will configurate the model: choosing between Polynomial and Fourier basis function for the representation; selecting one of the four model structure selection algorithm (Forward regression orthogonal least squares, Acelerated orthogonal least squares, Entropic regression and Meta model structure selection); setting the parameters related to each one of the cited algorithms; defining the specific lags for input and output; picking the estimators and model type to be used and lastly setting the predict options (choosing between a free run simulation or k-steps ahead simulation):
 
 ![Model parameters configuration](../paper/images/2.png)
+
 ![Model and predict parameters configuration](../paper/images/3.png)
 
 The 'Model Validation and Metrics' tab gives to the user the results of the identified system: the regressors and its parameters, the plots for results and residues, as well as the metrics (MSE, RMSE, MAE, RMSE and many others):
 
 ![Model regressors and results plot](../paper/images/4.png)
+
 ![Model metrics](../paper/images/5.png)
 
 In the last tab, 'Save Model', is available for the user to download the fitted model for posterior analysis in the 'Load your Model' page.
@@ -69,10 +71,33 @@ In this page, the user can load the previously fitted model for new analysis. Fi
 As soon as the model is loaded, the application will display the regressors and its parameters, metrics and the results/residues plots for the system, for the given data:
 
 ![Model regressors and metrics](../paper/images/7.png)
+
 ![Results plot](../paper/images/8.png)
 
 ## Simulate a Predefined Model
 
-The user can simulate a model known beforehand (regressors and parameters).
+The user can simulate a model known beforehand (regressors and parameters), using the regressors codification that is described in `SysIdentPy` documentation, you can enter a model that will be fitted with the uploaded data.
+
+We start loading the input and output datasets into the app:
+
+![Data upload](../paper/images/9.png)
+
+Then, we set the nonlinearity degree of the model and enter the list with the the especific regressors (each regressor group at a time):
+
+![Regressors input](../paper/images/10.png)
+
+Then, we set the parameter value for each regressor group:
+
+![Setting parameter values](../paper/images/11.png)
+
+The last step is configurating the fitting arguments and clicking the 'Simulate the model' button:
+
+![Configurating the fitting](../paper/images/12.png)
+
+The aplication then outputs the model equation formated, the metrics and results/residues plots for analysis:
+
+![Output from the app 1](../paper/images/13.png)
+
+![Output from the app 2](../paper/images/14.png)
 
 # References
