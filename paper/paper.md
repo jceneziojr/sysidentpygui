@@ -129,4 +129,6 @@ The aplication then outputs the model equation formated, the metrics and results
 
 ![Output from the app 2](../paper/images/14.png)
 
+# Future Work
+
 # References
