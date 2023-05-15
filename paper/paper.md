@@ -11,10 +11,12 @@ tags:
 authors:
   - name: Júlio César Enezio Júnior
     orcid: 0009-0005-8510-3432
+    corresponding: true
     affiliation: "1" 
   - name: Wilson Rocha Lacerda Junior
     affiliation: "1" 
   - name: Samir Angelo Milani Martins
+    orcid: 0000-0003-1702-8504
     affiliation: "1, 2"
 affiliations:
  - name: GCoM - Modeling and Control Group at Federal University of São João del-Rei, Brazil
@@ -31,7 +33,7 @@ The field of System Identification (SI) aims to build mathematical models for st
 
 In this context, `SysIdentPy` is a package designed for system identification using polynomial NARMAX models [@Wil2020]. It can handle SISO (Single-Input Single-Output) and MISO (Multiple-Inputs Single-Output) NARMAX model identification and its variants such as NARX, NAR, ARMAX, ARX, and AR models. `SysIdentPy` provides various tools for both model structure selection and parameter estimation including classical algorithms, e.g., forward regression orthogonal least squares and extended least squares orthogonal forward regression; parameter estimation using ordinary least squares, recursive algorithms and adaptative filters; the Akaike Information Criterion (AIC), Bayesian Information Criterion (BIC), Khinchin's law of iterated logarithm criterion (LILC), and Final Prediction Error (FPE) methods for model order selection [@HK1999]; regression metrics; and residual analysis. The reader is referred to the package documentation for further details.
 
-# SysIdentPyGUI
+# Statement of need
 
 `SysIdentPyGUI` is a web app for the Python module `SysIdentPy` in the format of a Graphical User Interface (GUI). It was written using the `Streamlit` library, which allows the creation of web apps in a compact Python syntax. `SysIdentPyGUI` comes as an use alternative for people that would like to use `SysIdentPy` toolbox but aren't familiar with Python, such as medical or economy students. The application currently has the following `SysIdentPy` features implemented:
 
