@@ -35,7 +35,7 @@ of systems based on experimental data [@Lju1987]. Nonlinear
 system identification has emerged as a key topic within the SI 
 community, and since the 1950s, numerous methods have been 
 proposed [@ZAINOL2022106835], [@BONASSI2021547], [@MARTINS2016607], 
-[ayala2020r], [BBWL2018]. NARMAX (Nonlinear AutoRegressive Moving 
+[@ayala2020r], [@BBWL2018]. NARMAX (Nonlinear AutoRegressive Moving 
 Average with eXogenous input) models are particularly 
 well-documented and widely used representations of dynamical 
 systems [@Bil2013].
