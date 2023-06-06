@@ -1,0 +1,31 @@
+site_name: SysIdentPyGUI
+site_description: Graphical Interface for System Identification
+site_author: Júlio César Enezio Júnior
+site_url: 
+
+repo_name: jceneziojr/sysidentpygui
+repo_url: https://github.com/jceneziojr/sysidentpygui
+
+copyright: Copyright &copy; 2023 - Júlio C. Enezio Jr.
+
+nav:
+  - Home: index.md
+
+theme:
+  favicon: img/favicon.png
+  name: material
+  logo: img/logo.png
+  language: en
+  palette:
+    - scheme: default
+      primary: white
+      accent: brown
+      toggle:
+        icon: material/brightness-7
+        name: Switch to dark mode
+    - scheme: slate
+      primary: black
+      accent: brown
+      toggle:
+        icon: material/brightness-4
+        name: Switch to light mode
