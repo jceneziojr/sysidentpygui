@@ -43,7 +43,7 @@ streamlit run 1_SysIdentPyGUI.py
 SysIdentPyGUI requires the following modules for a local host:
 
 - Python (>= 3.10)
-- Sysidentpy (>= 0.2.0)
+- Sysidentpy (== 0.3.1)
 - Streamlit (>= 1.14.0)
 - Matplotlib (>= 3.6.1)
 - Numpy (>= 1.23.4)
