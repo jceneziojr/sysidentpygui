@@ -11,10 +11,12 @@ tags:
 authors:
   - name: Júlio César Enezio Júnior
     orcid: 0009-0005-8510-3432
+    corresponding: true
     affiliation: "1" 
   - name: Wilson Rocha Lacerda Junior
     affiliation: "1" 
   - name: Samir Angelo Milani Martins
+    orcid: 0000-0003-1702-8504
     affiliation: "1, 2"
 affiliations:
  - name: GCoM - Modeling and Control Group at Federal University of São João del-Rei, Brazil
@@ -27,11 +29,38 @@ bibliography: paper.bib
 
 # Summary
 
-The field of System Identification (SI) aims to build mathematical models for static and dynamic behavior from experimental data [@Lju1987]. In particular, nonlinear system identification has become a central issue in the SI community, and from the 1950s onwards many methods have been proposed. In this respect, NARMAX (Nonlinear AutoRegressive Moving Average with eXogenous input) models are among the most well-documented and used model representation of dynamical systems [@Bil2013].
+The field of System Identification (SI) aims to construct 
+mathematical models that describe the static and dynamic behavior 
+of systems based on experimental data [@Lju1987]. Nonlinear 
+system identification has emerged as a key topic within the SI 
+community, and since the 1950s, numerous methods have been 
+proposed [@ZAINOL2022106835], [@BONASSI2021547], [@MARTINS2016607], 
+[@ayala2020r], [@BBWL2018]. NARMAX (Nonlinear AutoRegressive Moving 
+Average with eXogenous input) models are particularly 
+well-documented and widely used representations of dynamical 
+systems [@Bil2013].
 
-In this context, `SysIdentPy` is a package designed for system identification using polynomial NARMAX models [@Wil2020]. It can handle SISO (Single-Input Single-Output) and MISO (Multiple-Inputs Single-Output) NARMAX model identification and its variants such as NARX, NAR, ARMAX, ARX, and AR models. `SysIdentPy` provides various tools for both model structure selection and parameter estimation including classical algorithms, e.g., forward regression orthogonal least squares and extended least squares orthogonal forward regression; parameter estimation using ordinary least squares, recursive algorithms and adaptative filters; the Akaike Information Criterion (AIC), Bayesian Information Criterion (BIC), Khinchin's law of iterated logarithm criterion (LILC), and Final Prediction Error (FPE) methods for model order selection [@HK1999]; regression metrics; and residual analysis. The reader is referred to the package documentation for further details.
+`SysIdentPy` [@Wil2020] is a package designed for system 
+identification using polynomial NARMAX models. It has the 
+capability to handle both SISO (Single-Input Single-Output) 
+and MISO (Multiple-Inputs Single-Output) NARMAX model 
+identification, as well as related variants such as 
+NARX, NAR, ARMAX, ARX, and AR models. Additionally, 
+the package provides several tools for structure selection, 
+parameter estimation, and model validation. The package is 
+continuously being updated and expanded with new features 
+by the community, highlighting its value and importance 
+in the field of system identification.
 
-# SysIdentPyGUI
+Since `SysIdentPy` is a Python programming tool, users need 
+to have some experience with Python to use it effectively. 
+However, to make the package more accessible to a wider range 
+of users, `SysIdentPyGUI` was developed as a Graphical User 
+Interface (GUI) for `SysIdentPy`. This allows any user to use 
+`SysIdentPy's` outstanding functionalities without 
+needing to write any line of code.
+
+# Statement of need
 
 `SysIdentPyGUI` is a web app for the Python module `SysIdentPy` in the format of a Graphical User Interface (GUI). It was written using the `Streamlit` library, which allows the creation of web apps in a compact Python syntax. `SysIdentPyGUI` comes as an use alternative for people that would like to use `SysIdentPy` toolbox but aren't familiar with Python, such as medical or economy students. The application currently has the following `SysIdentPy` features implemented:
 
@@ -99,5 +128,7 @@ The aplication then outputs the model equation formated, the metrics and results
 ![Output from the app 1](../paper/images/13.png)
 
 ![Output from the app 2](../paper/images/14.png)
+
+# Future Work
 
 # References
