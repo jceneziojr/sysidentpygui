@@ -10,6 +10,9 @@ copyright: Copyright &copy; 2023 - Júlio C. Enezio Jr.
 
 nav:
   - Home: index.md
+  - System Identification:
+    - SISO: sysidsiso.md
+    - MISO: sysidmiso.md
 
 theme:
   favicon: img/favicon.png

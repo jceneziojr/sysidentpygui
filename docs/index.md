@@ -12,6 +12,7 @@ Using SysIdentPyGUI a system can be identified using NARMAX models, with Polynom
 
 The user can also load a previously identified model, to validate and predict using a separate dataset, as well as simulating a predefined model through its equation.
 
+SysIdentPy has a user friendly and straightforward interface, so that anyone can bring up their input and output data, and get a non-linear mathematical model that can describe their behaviour.
 ## Usage
 
 SysIdentPyGUI is currently hosted on [***Streamlit Cloud***](https://sysidentpygui.streamlit.app/). You can run it locally on your machine via a containerized version through [***Docker***](https://www.docker.com/) by using the Dockerfile that is available, through the following commands:
