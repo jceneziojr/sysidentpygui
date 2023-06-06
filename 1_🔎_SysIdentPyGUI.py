@@ -255,7 +255,7 @@ with tab2:
     if st.session_state['y_data'] != None and st.session_state['x_data'] != None:#não é o melhor jeito de fazer isso
         st.write('Predict Options')
         if isinstance(model, MetaMSS): #MetaMSS tem métodos diferentes
-            model.fit(X_train=x_train, y_train=y_train, X_test=x_valid, y_test=y_valid)
+            model.fit(X=x_train, y=y_train, X_test=x_valid, y_test=y_valid)
             if 'steps_ahead' not in st.session_state:
                 st.session_state['steps_ahead'] = None
             if 'forecast_horizon' not in st.session_state:
@@ -265,7 +265,7 @@ with tab2:
                 st.number_input('Steps Ahead', key = 'steps_ahead', min_value=1)
                 if model.model_type == 'NAR':
                     st.number_input('Forecast Horizon', key = 'forecast_horizon', min_value=1)
-            yhat = model.predict(X_test=x_valid, y_test=y_valid, steps_ahead=st.session_state['steps_ahead'], forecast_horizon=st.session_state['forecast_horizon'])    
+            yhat = model.predict(X=x_valid, y=y_valid, steps_ahead=st.session_state['steps_ahead'], forecast_horizon=st.session_state['forecast_horizon'])    
             
         else:
             model.fit(X=x_train, y=y_train)
@@ -310,7 +310,7 @@ with tab3:
         metrics_vallist = list() #criando listas separadas deixa mais bonito
         with st.expander('Metrics'):
             for index in range(len(metrics_list)):
-                if metrics_list[index] == 'r2_score' or metrics_list[index] == 'forecast_error':
+                if metrics_list[index] == 'forecast_error':
                     pass
                 else:
                     metrics_namelist.append(utils.get_acronym(utils.adjust_string(metrics_list[index])))

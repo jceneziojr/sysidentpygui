@@ -186,12 +186,15 @@ def adjust_string(label_string):
     return spaced_string.capitalize()
 
 def get_acronym(string):
-    oupt = string[0]
-    
-    for i in range(1, len(string)):
-        if string[i-1] == ' ':
-            oupt += string[i]
-    return oupt.upper()
+    if string == "R2 score":
+        return 'R2S'
+    else:
+        oupt = string[0]
+        
+        for i in range(1, len(string)):
+            if string[i-1] == ' ':
+                oupt += string[i]
+        return oupt.upper()
 
 def get_lags_list(n):
     lags = []
