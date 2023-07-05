@@ -1,5 +1,7 @@
 # System Identification Using a SISO System (Single Input/Single Output)
 
+> **_NOTE:_**  More information about the model setup parameters and its funcionalities can be found in the [***SysIdentPy Documentation***](http://sysidentpy.org/).
+
 To identify a system using a dataset with one input and one output is really easy using SysIdentPyGUI. First, in the main page (**SysIdentPyGUI**), go to the first tab ('Load Data') and load your input data and output data using headless .csv files (drag to the box or click the 'Browse files' button):
 
 ![](img/1.jpeg)

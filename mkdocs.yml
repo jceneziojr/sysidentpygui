@@ -13,6 +13,9 @@ nav:
   - System Identification:
     - SISO: sysidsiso.md
     - MISO: sysidmiso.md
+  - Loading a model: loadmodel.md
+  - Simulating a predefined model: simu.md
+  - About: about.md
 
 theme:
   favicon: img/favicon.png
@@ -21,14 +24,17 @@ theme:
   language: en
   palette:
     - scheme: default
-      primary: white
+      primary: black
       accent: brown
       toggle:
-        icon: material/brightness-7
+        icon: material/weather-sunny
         name: Switch to dark mode
     - scheme: slate
       primary: black
       accent: brown
       toggle:
-        icon: material/brightness-4
+        icon: material/weather-night
         name: Switch to light mode
+
+extra_css:
+  - stylesheets/extra.css
