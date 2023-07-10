@@ -8,11 +8,11 @@
 
 In this website is presented the documentation for SysIdentPyGUI, the graphical user interface for system identification using SysIdentPy. Here the user can learn through examples how to use the webapp for system identification and simulation in a variety of ways.
 
-Using SysIdentPyGUI a system can be identified using NARMAX models, with Polynomial or Fourier basis functions, using advanced structure selection algorithms (FROLS, AOLS, MetaMSS or ER), combined with a large range of metrics for posterior analysis and many other costumizable parameters.
+Through SysIdentPyGUI, a system can be identified using NARMAX models, with Polynomial or Fourier basis functions, using advanced structure selection algorithms (FROLS, AOLS, MetaMSS or ER), combined with a wide range of metrics for posterior analysis and many other costumizable parameters.
 
 The user can also load a previously identified model, to validate and predict using a separate dataset, as well as simulating a predefined model through its equation.
 
-SysIdentPy has a user friendly and straightforward interface, so that anyone can bring up their input and output data, and get a non-linear mathematical model that can describe their behaviour.
+SysIdentPyGUI has an user friendly and straightforward interface, so that anyone can bring up their input and output data, and easily get a non-linear mathematical model that can describe their behaviour.
 ## Usage
 
 SysIdentPyGUI is currently hosted on [***Streamlit Cloud***](https://sysidentpygui.streamlit.app/). You can run it locally on your machine via a containerized version through [***Docker***](https://www.docker.com/) by using the Dockerfile that is available, through the following commands:

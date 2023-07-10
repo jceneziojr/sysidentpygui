@@ -2,7 +2,7 @@
 
 > **_NOTE:_**  More information about the model setup parameters and its funcionalities can be found in the [***SysIdentPy Documentation***](http://sysidentpy.org/).
 
-To identify a system using a dataset with multiple inputs and one output is really simple too. We will use a dataset with two equal inputs formatted in a .csv file, where each input is in a column.
+To identify a system using a dataset with multiple inputs and one output is really simple as well. We will use a dataset with two equal inputs formatted in a .csv file, where each input is in a column.
 
 ![](img/11.jpg)
 
