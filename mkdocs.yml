@@ -20,7 +20,7 @@ nav:
 theme:
   favicon: img/favicon.png
   name: material
-  logo: img/logo.png
+  logo: img/logo_white.png
   language: en
   palette:
     - scheme: default
