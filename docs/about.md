@@ -22,5 +22,9 @@ If you run into a bug or have a suggestion, please open a issue on our [GitHub r
 
 We aim to make **SysIdentPyGUI** as self-maintaining as possible and up to date comparing to **SysIdentPy**. Some features from **SysIdentPy** aren't available yet, like the Narx Neural Network. But they will be analyzed and deployed eventually.
 
+## Contributors
 
+<a href="https://github.com/jceneziojr/sysidentpygui/graphs/contributors">
+  <img src="https://contributors-img.web.app/image?repo=jceneziojr/sysidentpygui" width = 500/>
+</a>
 
