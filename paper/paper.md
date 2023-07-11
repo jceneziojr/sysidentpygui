@@ -74,7 +74,7 @@ The application currently has the following `SysIdentPy` features implemented:
 
 To use `SysIdentPyGUI` the user could access the app through the hosted server, cloning the repository or running a containerized version through Docker.
 
-Further in this article is described examples of usage of the web app and future work, but more detailed information can also be found in documentation.
+Further in this article is described examples of usage of the web app and future work, but more detailed information can also be found in the [documentation](https://jceneziojr.github.io/sysidentpygui/).
 
 # Example of usage
 
