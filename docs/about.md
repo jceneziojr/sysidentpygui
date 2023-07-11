@@ -25,6 +25,6 @@ We aim to make **SysIdentPyGUI** as self-maintaining as possible and up to date 
 ## Contributors
 
 <a href="https://github.com/jceneziojr/sysidentpygui/graphs/contributors">
-  <img src="https://contributors-img.web.app/image?repo=jceneziojr/sysidentpygui" width = 500/>
+  <img src="https://contributors-img.web.app/image?repo=jceneziojr/sysidentpygui" width = 200/>
 </a>
 
