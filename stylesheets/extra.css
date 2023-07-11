@@ -1,0 +1,23 @@
+.md-nav__link:hover {
+  color: orange;
+}
+
+.md-nav__link:focus {
+  color: orange;
+}
+
+.md-nav--primary .md-nav__item--active>.md-nav__link{
+  color: orange
+}
+
+.md-nav--primary .md-nav__item--active>.md-nav__link:focus{
+  color: orange
+}
+
+.md-nav--primary .md-nav__item--active>.md-nav__link:hover{
+  color: orange
+}
+
+/* .md-nav__link--active {
+  color: orange;
+} */
