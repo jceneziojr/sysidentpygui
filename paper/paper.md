@@ -80,7 +80,7 @@ Further in this article, examples of the web app's usage and future work are des
 
 ## Model Identification
 
-Through `SysIdentPyGUI`, with few clicks, you can quickly identify the mathematical model that approximates the behaviour of given data: first you upload your data, set the `Model Setup` parameters (or you could tweak through the default values until you obtain a decent predict) and finally you can analyze your results.
+Through `SysIdentPyGUI`, with just a few clicks, you can quickly identify the mathematical model that approximates the behavior of the given data. First, you upload your data, set the parameters in the `Model Setup` (or you can tweak them using the default values until you obtain a decent prediction), and finally, you can analyze your results.
 
 ![Data loaded and validation percentage set](../paper/images/1.png)
 
@@ -90,13 +90,13 @@ Through `SysIdentPyGUI`, with few clicks, you can quickly identify the mathemati
 
 ## Loading a model
 
-If the user saved the model in their computer, they can load it and use other dataset to analyze the model fitting.
+If the user has saved the model on their computer, they can load it and use another dataset to analyze the model fitting.
 
 ![Loading a previously fitted model](../paper/images/4.png)
 
 ## Simulate a Predefined Model
 
-The user can simulate a NARX model known beforehand (regressors and parameters), using the regressors codification that is described in `SysIdentPy` documentation. Its as simple as loading the data, inputing the regressors list, setting the regressors parameters and configurating the simulation.
+The user can simulate a pre-known NARX model (with regressors and parameters) using the regressor encoding described in the `SysIdentPy` documentation. It's as simple as loading the data, inputting the regressor list, setting the regressor parameters, and configuring the simulation.
 
 ![Regressors code and parameters](../paper/images/5.png)
 
@@ -104,6 +104,6 @@ The user can simulate a NARX model known beforehand (regressors and parameters),
 
 # Future Work
 
-`SysIdentPyGUI` aims to be as self-maintaining as possible and up to date comparing to `SysIdentPy`. However, some features aren't available yet, like the Narx Neural Network. But they will be analyzed and deployed eventually, as well as the new features developed in the package.
+`SysIdentPyGUI` aims to be as self-maintaining as possible and to stay up-to-date compared to `SysIdentPy`. However, some features, such as the Narx Neural Network, are not yet available. Nevertheless, they will be analyzed and deployed in due course, along with any new features developed in the package.
 
 # References
