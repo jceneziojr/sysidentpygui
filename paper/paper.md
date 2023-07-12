@@ -62,19 +62,19 @@ needing to write any line of code.
 
 # Statement of need
 
-`SysIdentPyGUI` is a web app for the Python module `SysIdentPy` in the format of a Graphical User Interface (GUI). It was written using the `Streamlit` library, which allows the creation of web apps in a compact Python syntax. `SysIdentPyGUI` was concepted as a alternative for people that would like to use `SysIdentPy` toolbox but aren't familiar with Python, such as medical or economy students. But even experienced users could take advantage of its facilities, for a quick and easy use of the system identification and simulation tools, through a cellphone for example. 
+`SysIdentPyGUI` is a web app for the Python module `SysIdentPy` in the form of a Graphical User Interface (GUI). It was written using the `Streamlit` library, which allows the creation of web apps in a concise Python syntax. `SysIdentPyGUI` was conceived as an alternative for people who would like to use the `SysIdentPy` toolbox but are not familiar with Python, such as medical or economics students. However, even experienced users can take advantage of its features for quick and easy use of the system identification and simulation tools, for example, using a cellphone.
 
-Besides this, there isn't any projects for NARX and NARMAX system identification in the shape of a GUI available, so its a relevant contribution to the field.
+Moreover, there are currently no projects available for NARX and NARMAX system identification in the form of a GUI, making it a significant contribution to the field.
 
-The application currently has the following `SysIdentPy` features implemented:
+The application currently implements the following features of `SysIdentPy`:
 
-- NARX and NARMAX Model identification using four model structure selection algorithms (Acelerated orthogonal least squares, Forward regression least squares, Meta model structure selection and Entropic regression); two basis function (Polynomial and Fourier); a variety of estimator algorithms (such as least squares, recursive least squares and least mean squares); the capabilitie to identify SISO and MISO models and selecting the specific lag for each input and output; free run and k-steps ahead simulation; a intuitive list of regressors and its parameters; the results and residues plot; a complete list of metrics to analyze the model; possibility to download a model file for posterior usage.
-- You are able to use the model file that was previously generated to analyze a new dataset and check metrics and plots as specified before.
-- If the user has a known NARX model equation, the're able to input it on the web app and simulate the model with free run and k-steps ahead option and other parameters.
+- NARX and NARMAX model identification using four model structure selection algorithms (Accelerated orthogonal least squares, Forward regression least squares, Meta model structure selection, and Entropic regression); two basis functions (Polynomial and Fourier); a variety of estimator algorithms (such as least squares, recursive least squares, and least mean squares); the ability to identify SISO and MISO models and select the specific lag for each input and output; free run and k-steps ahead simulation; an intuitive list of regressors and their parameters; results and residuals plots; a complete list of metrics to analyze the model; the ability to download a model file for future usage.
+- You can use a previously generated model file to analyze a new dataset and check the specified metrics and plots.
+- If the user has a known NARX model equation, they can input it into the web app and simulate the model with free run and k-steps ahead options and other parameters.
 
-To use `SysIdentPyGUI` the user could access the app through the hosted server, cloning the repository or running a containerized version through Docker.
+To use `SysIdentPyGUI`, the user can access the app through the hosted server, clone the repository, or run a containerized version using Docker.
 
-Further in this article is described examples of usage of the web app and future work, but more detailed information can also be found in the [documentation](https://jceneziojr.github.io/sysidentpygui/).
+Further in this article, examples of the web app's usage and future work are described, but more detailed information can also be found in the [documentation](https://jceneziojr.github.io/sysidentpygui/).
 
 # Example of usage
 
