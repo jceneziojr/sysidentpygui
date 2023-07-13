@@ -99,7 +99,7 @@ Through `SysIdentPyGUI`, with just a few clicks, you can quickly identify the ma
 
 ## Loading a model
 
-If the user has saved the model on their computer, they can load it and use another dataset to analyze the model fitting.
+If the user previously has saved the model on their computer through either `SysIdentPy` or `SysIdentPyGUI`, they can load it and use another dataset to analyze the model fitting.
 
 ![Loading a previously fitted model](../paper/images/4.png)
 
