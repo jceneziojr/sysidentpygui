@@ -13,6 +13,7 @@ nav:
   - System Identification:
     - SISO: sysidsiso.md
     - MISO: sysidmiso.md
+  - Saving a model: downloadmodel.md
   - Loading a model: loadmodel.md
   - Simulating a predefined model: simu.md
   - About: about.md
