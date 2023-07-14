@@ -88,19 +88,27 @@ Through `SysIdentPyGUI`, with just a few clicks, you can quickly identify the ma
 
 ![Predict results](../paper/images/3.png)
 
+## Saving the model
+
+After identifying the model, the user can save it to a file on their device for future use. Simply go to the **Save Model** tab and click the "Download model" button.
+
+![](images/4.png)
+
+The user may save the file to their device as desired and later load it into the "Load your model" page to test the model with a new dataset.
+
 ## Loading a model
 
 If the user has saved the model on their computer, they can load it and use another dataset to analyze the model fitting.
 
-![Loading a previously fitted model](../paper/images/4.png)
+![Loading a previously fitted model](../paper/images/5.png)
 
 ## Simulate a Predefined Model
 
 The user can simulate a pre-known NARX model (with regressors and parameters) using the regressor encoding described in the `SysIdentPy` documentation. It's as simple as loading the data, inputting the regressor list, setting the regressor parameters, and configuring the simulation.
 
-![Regressors code and parameters](../paper/images/5.png)
-
 ![Regressors code and parameters](../paper/images/6.png)
+
+![Regressors code and parameters](../paper/images/7.png)
 
 # Future Work
 
