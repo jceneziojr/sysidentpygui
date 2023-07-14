@@ -62,17 +62,26 @@ needing to write any line of code.
 
 # Statement of need
 
-`SysIdentPyGUI` is a web app for the Python module `SysIdentPy` in the form of a Graphical User Interface (GUI). It was written using the `Streamlit` library, which allows the creation of web apps in a concise Python syntax. `SysIdentPyGUI` was conceived as an alternative for people who would like to use the `SysIdentPy` toolbox but are not familiar with Python, such as medical or economics students. However, even experienced users can take advantage of its features for quick and easy use of the system identification and simulation tools, for example, using a cellphone.
+`SysIdentPyGUI` is a web app for the Python module `SysIdentPy` in the form of a Graphical User Interface (GUI). It was written using the `Streamlit` library, which allows the creation of web apps in a concise Python syntax. `SysIdentPyGUI` was conceived as an alternative for people who would like to use the `SysIdentPy` toolbox but are not familiar with Python, such as medical or economics professionals. However, even experienced users can take advantage of its features for quick and easy use of the system identification and simulation tools, for example, using a mobile device.
 
 Moreover, there are currently no projects available for NARX and NARMAX system identification in the form of a GUI, making it a significant contribution to the field.
 
-The application currently implements the following features of `SysIdentPy`:
+The application currently implements a combination of the following features of `SysIdentPy`:
 
-- NARX and NARMAX model identification using four model structure selection algorithms (Accelerated orthogonal least squares, Forward regression least squares, Meta model structure selection, and Entropic regression); two basis functions (Polynomial and Fourier); a variety of estimator algorithms (such as least squares, recursive least squares, and least mean squares); the ability to identify SISO and MISO models and select the specific lag for each input and output; free run and k-steps ahead simulation; an intuitive list of regressors and their parameters; results and residuals plots; a complete list of metrics to analyze the model; the ability to download a model file for future usage.
-- You can use a previously generated model file to analyze a new dataset and check the specified metrics and plots.
-- If the user has a known NARX model equation, they can input it into the web app and simulate the model with free run and k-steps ahead options and other parameters.
+- NARX and NARMAX model identification using four model structure selection algorithms (Accelerated orthogonal least squares, Forward regression least squares, Meta model structure selection, and Entropic regression);
+- Different basis functions (Polynomial and Fourier); 
+- A variety of estimators (such as least squares, recursive least squares, and least mean squares); 
+- The ability to identify SISO and MISO models from data; 
+- The possibility to select a specific lag for each input and output; 
+- Free run and k-steps ahead simulations; 
+- An intuitive list of regressors and their parameters; 
+- Results and residuals plots; 
+- A complete list of metrics to analyze the obtained model; 
+- The possibility to save/download a model file for future usage;
+- User can also use a previously generated model file to analyze a new dataset and check the specified metrics and plots;
+- If the user has a known NARX model, they can input it into the web app and simulate the model using the options of free run, k-steps ahead, and other parameters.
 
-To use `SysIdentPyGUI`, the user can access the app through the hosted server, clone the repository, or run a containerized version using Docker.
+To use `SysIdentPyGUI`, the user can access the app through the [hosted server (https://sysidentpygui.streamlit.app/)](https://sysidentpygui.streamlit.app/), clone the repository, or run a containerized version using Docker.
 
 Further in this article, examples of the web app's usage and future work are described, but more detailed information can also be found in the [documentation](https://jceneziojr.github.io/sysidentpygui/).
 
@@ -98,7 +107,7 @@ The user may save the file to their device as desired and later load it into the
 
 ## Loading a model
 
-If the user has saved the model on their computer, they can load it and use another dataset to analyze the model fitting.
+If the user previously has saved the model on their computer through either `SysIdentPy` or `SysIdentPyGUI`, they can load it and use another dataset to analyze the model fitting.
 
 ![Loading a previously fitted model](../paper/images/5.png)
 
