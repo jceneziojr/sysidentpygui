@@ -4,6 +4,9 @@
 
 # Welcome to SysIdentPyGUI documentation
 
+[![Streamlit App](https://static.streamlit.io/badges/streamlit_badge_black_white.svg)](https://sysidentpygui.streamlit.app/)
+[![Repo](https://badgen.net/github/release/wilsonrljr/sysidentpy/?icon=github&labelColor=373736&label&color=f47c1c)](https://github.com/wilsonrljr/sysidentpy)
+[![Repo](https://badgen.net/github/release/jceneziojr/sysidentpygui/stable?label&color=f47c1c&labelColor=373736&icon=github)](https://github.com/jceneziojr/sysidentpygui)
 ## Introduction
 
 In this website is presented the documentation for SysIdentPyGUI, the graphical user interface for system identification using SysIdentPy. Here the user can learn through examples how to use the webapp for system identification and simulation in a variety of ways.
