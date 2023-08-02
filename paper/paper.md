@@ -14,6 +14,7 @@ authors:
     corresponding: true
     affiliation: "1" 
   - name: Wilson Rocha Lacerda Junior
+    orcid: 0000-0002-3263-1152
     affiliation: "1" 
   - name: Samir Angelo Milani Martins
     orcid: 0000-0003-1702-8504
