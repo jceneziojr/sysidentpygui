@@ -1,0 +1,24 @@
+name: Empty Daily Commit
+
+on:
+  schedule:
+    - cron: '0 20 * * *' # Runs at 17h UTC-03:00 (Brazilian Time)
+
+jobs:
+  commit:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Check Out
+      uses: actions/checkout@v2
+
+    - name: Create Empty File
+      run: echo > up_app_empty_file.txt
+
+    - name: Commit Changes
+      run: |
+        git config user.email "julio.cesar.enezio@gmail.com"
+        git config user.name "jceneziojr"
+        git add up_app_empty_file.txt
+        git commit -m "Daily commit to keep the app up and running"
+        git push
