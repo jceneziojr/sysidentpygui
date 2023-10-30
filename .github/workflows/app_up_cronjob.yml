@@ -2,7 +2,7 @@ name: Empty Daily Commit
 
 on:
   schedule:
-    - cron: '0 20 * * *' # Runs at 17h UTC-03:00 (Brazilian Time)
+    - cron: '10 21 * * *' # Runs at 17h UTC-03:00 (Brazilian Time)
 
 jobs:
   commit:
