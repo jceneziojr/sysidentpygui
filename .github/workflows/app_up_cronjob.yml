@@ -2,23 +2,34 @@ name: Empty Daily Commit
 
 on:
   schedule:
-    - cron: '10 21 * * *' # Runs at 17h UTC-03:00 (Brazilian Time)
+    - cron: '20 20 * * *'
 
 jobs:
-  commit:
+  rename_file:
     runs-on: ubuntu-latest
 
     steps:
     - name: Check Out
       uses: actions/checkout@main
 
-    - name: Create Empty File
-      run: echo > up_app_empty_file.txt
+    - name: Rename File
+      run: |
+        current_date=$(date +'%d_%m_%Y')
+        previous_date=$(date -d 'yesterday' +'%d_%m_%Y')
+        original_filename="up_daily_commit_${previous_date}.txt"
+        new_filename="up_daily_commit_${current_date}.txt"
 
-    - name: Commit Changes
+        if [ -f "$original_filename" ]; then
+          mv "$original_filename" "$new_filename"
+          echo "Arquivo renomeado de $original_filename para $new_filename"
+        else
+          echo "Arquivo atual não encontrado: $original_filename"
+        fi
+
+    - name: Commit and Push
       run: |
         git config user.email "julio.cesar.enezio@gmail.com"
         git config user.name "jceneziojr"
-        git add up_app_empty_file.txt
+        git add .
         git commit -m "Daily commit to keep the app up and running"
         git push
