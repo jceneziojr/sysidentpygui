@@ -10,7 +10,7 @@ import inspect
 
 def addlogo():
     st.markdown(
-        """<img src="https://i.imgur.com/roD5DkG.png" alt="logo" class="center"> """,
+        """<img src="https://raw.githubusercontent.com/jceneziojr/sysidentpygui/refs/heads/main/docs/img/logo.png" alt="logo" class="center"> """,
         unsafe_allow_html=True,
     )  # adiciona a logo
     st.markdown(
