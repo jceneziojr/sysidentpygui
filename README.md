@@ -1,5 +1,5 @@
 <p align="center">
-<img src="https://i.imgur.com/roD5DkG.png" width="640" height="320" />
+<img src="https://raw.githubusercontent.com/jceneziojr/sysidentpygui/refs/heads/main/docs/img/logo.png" width="640" height="320" />
 </p>
 
 [![Streamlit App](https://static.streamlit.io/badges/streamlit_badge_black_white.svg)](https://sysidentpygui.streamlit.app/)
