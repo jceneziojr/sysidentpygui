@@ -118,6 +118,8 @@ def get_model_struc_selec_parameter_list(module):
                 "basis_function",
             ]
             _compact_args = dict(((key, _full_args[key]) for key in _compact_form_keys))
+            _compact_args['order_selection'] = True
+            _full_args['order_selection'] = True
             _model_struc_selec_parameter_list.append(_compact_args)
             _model_struc_selec_parameter_list.append(_full_args)
         elif _cls == "MetaMSS":
