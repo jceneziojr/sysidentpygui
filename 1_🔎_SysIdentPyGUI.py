@@ -639,13 +639,13 @@ with tab3:
             x1e = compute_cross_correlation(y_valid, yhat, x_valid[:, 0])
         with st.expander("Results Plot"):
             if st.session_state["free_run"] == True:
-                st.image(utils.plot_results(y=y_valid, yhat=yhat, n=1000))
+                st.image(utils.plot_results(y=y_valid, yhat=yhat, n=yhat.shape[0]))
             else:
                 st.image(
                     utils.plot_results(
                         y=y_valid,
                         yhat=yhat,
-                        n=1000,
+                        n=yhat.shape[0],
                         title=str(st.session_state["steps_ahead"])
                         + " Steps ahead simulation",
                     )
