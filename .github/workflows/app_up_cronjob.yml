@@ -1,8 +1,8 @@
-name: Empty Daily Commit
+name: Empty Periodic Commit
 
 on:
   schedule:
-    - cron: '20 20 * * *'
+    - cron: '0 0,8,16 * * *'  # Roda às 00h, 08h e 16h UTC todos os dias
 
 jobs:
   rename_file:
@@ -14,16 +14,19 @@ jobs:
 
     - name: Rename File
       run: |
-        current_date=$(date +'%d_%m_%Y')
-        previous_date=$(date -d 'yesterday' +'%d_%m_%Y')
-        original_filename="up_daily_commit_${previous_date}.txt"
-        new_filename="up_daily_commit_${current_date}.txt"
+        current_time=$(date +'%d_%m_%Y_%H')
+        previous_time=$(date -d '-8 hours' +'%d_%m_%Y_%H')
+
+        original_filename="up_commit_${previous_time}.txt"
+        new_filename="up_commit_${current_time}.txt"
 
         if [ -f "$original_filename" ]; then
           mv "$original_filename" "$new_filename"
           echo "Arquivo renomeado de $original_filename para $new_filename"
         else
-          echo "Arquivo atual não encontrado: $original_filename"
+          echo "Arquivo anterior não encontrado: $original_filename"
+          echo "Criando novo arquivo vazio: $new_filename"
+          touch "$new_filename"
         fi
 
     - name: Commit and Push
@@ -31,5 +34,5 @@ jobs:
         git config user.email "julio.cesar.enezio@gmail.com"
         git config user.name "jceneziojr"
         git add .
-        git commit -m "Daily commit to keep the app up and running"
+        git commit -m "Periodic commit to keep the app up and running"
         git push
