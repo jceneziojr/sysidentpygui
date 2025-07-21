@@ -12,22 +12,18 @@ jobs:
     - name: Check Out
       uses: actions/checkout@main
 
-    - name: Rename File
+    - name: Clean old and create new file
       run: |
         current_time=$(date +'%d_%m_%Y_%H')
-        previous_time=$(date -d '-8 hours' +'%d_%m_%Y_%H')
-
-        original_filename="up_commit_${previous_time}.txt"
         new_filename="up_commit_${current_time}.txt"
+    
+        # Remove todos os arquivos antigos up_commit_*.txt
+        rm -f up_commit_*.txt
+    
+        # Cria novo arquivo vazio
+        touch "$new_filename"
+        echo "Criado novo arquivo: $new_filename"
 
-        if [ -f "$original_filename" ]; then
-          mv "$original_filename" "$new_filename"
-          echo "Arquivo renomeado de $original_filename para $new_filename"
-        else
-          echo "Arquivo anterior não encontrado: $original_filename"
-          echo "Criando novo arquivo vazio: $new_filename"
-          touch "$new_filename"
-        fi
 
     - name: Commit and Push
       run: |
