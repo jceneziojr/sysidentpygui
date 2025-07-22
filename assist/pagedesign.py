@@ -11,7 +11,7 @@ st.set_page_config(  # Configurações gerais da página
 )
 
 utils.addlogo()
-#utils.removemenu()
+utils.removemenu()
 
 with st.expander("Information"):
     st.markdown(
